@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.GameLoopMenu">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Select an option"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    Text="Start a fight"
+                    Clicked="StartFightClicked"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="1"
+                    Text="Show character stats"
+                    Clicked="ShowCharacterStatsClicked"
+                    HorizontalOptions="Fill" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    Text="Restore Stats"
+                    Clicked="RestoreStatsClicked"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="1"
+                    Text="Open the shop"
+                    Clicked="OpenShopClicked"
+                    HorizontalOptions="Fill" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    Text="Show hero equipment"
+                    Clicked="ShowEquipmentClicked"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="1"
+                    Text="Show hero inventory"
+                    Clicked="ShowInventoryClicked"
+                    HorizontalOptions="Fill" />
+            </Grid>
+            <Button
+                Text="Save the game"
+                Clicked="SaveGameClicked"
+                HorizontalOptions="Fill" />
+            <Label
+                x:Name="ResultStatus"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

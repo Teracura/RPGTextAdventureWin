@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.NewGameHeroTypeSelectPage">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Choose Your Hero class"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+
+            <!-- First row - Warrior -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    x:Name="WarriorButton"
+                    Text="Warrior"
+                    Clicked="WarriorSelected"
+                    HorizontalOptions="Fill"/>
+                <Label
+                    Grid.Column="1"
+                    Text="(High HP, average Dmg, low MP, high Defence)"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <!-- Second row - Archer -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    x:Name="ArcherButton"
+                    Text="Archer"
+                    Clicked="ArcherSelected"
+                    HorizontalOptions="Fill"/>
+                <Label
+                    Grid.Column="1"
+                    Text="(Average HP, high Dmg, average MP, average Defence)"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <!-- Third row - Mage -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    x:Name="MageButton"
+                    Text="Mage"
+                    Clicked="MageSelected"
+                    HorizontalOptions="Fill"/>
+                <Label
+                    Grid.Column="1"
+                    Text="(Low HP, very high Dmg, high MP, low Defence)"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.BattleMenu">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <!--Header and enemyCountNumber-->
+            <Label
+                Margin="0,20,0,10" 
+                x:Name="EnemyCounter"
+                Text="Battle starts! (0 Enemies defeated out of placeholder!)"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="24"
+                LineBreakMode="WordWrap" />
+            
+            <!--Titles-->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Margin="0,20,0,10" 
+                    x:Name="HeroName"
+                    Text="PlaceHolderHeroName"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="20"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    Margin="0,20,0,10" 
+                    x:Name="EnemyName"
+                    Text="PlaceHolderEnemyName"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="20"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <!--Stats Area-->
+            <Grid ColumnDefinitions="17.5*,30*,5*,30*,17.5*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Health Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroHealth"
+                    Text="PlaceHolderHeroHealth"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    Text="EnemyHealth:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="4"
+                    Text="PlaceHolderEnemyHealth"
+                    x:Name="EnemyHealth"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            <Grid ColumnDefinitions="17.5*,30*,5*,30*,17.5*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Mana Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    Text="PlaceHolderHeroMana"
+                    x:Name="HeroMana"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    Text="Enemy ScaleFactor:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="4"
+                    Text="PlaceHolderScaleFactor"
+                    x:Name="ScaleFactor"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <!--ActionButtons-->
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="0,20,0,10" >
+                <Button
+                    Grid.Column="0"
+                    Text="Attack"
+                    Clicked="AttackButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="1"
+                    Text="Run"
+                    Clicked="RunAwayButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="2"
+                    Text="Use special Ability"
+                    Clicked="SpecialAbilityButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="3"
+                    Text="Use Item"
+                    Clicked="UseItemButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+            </Grid>
+            <!--BattleInformationBoxes-->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="PlaceHolderTextForInformationBoxOfHero"
+                    x:Name="HeroInformationBox"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    Text="PlaceHolderTextForInformationBoxOfEnemy"
+                    x:Name="EnemyInformationBox"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            <Label
+                x:Name="BattleStatus"
+                Text="Battle Initiated!"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="20"
+                LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

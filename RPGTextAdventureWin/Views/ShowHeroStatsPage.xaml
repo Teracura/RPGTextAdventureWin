@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.ShowHeroStatsPage">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Hero stats"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Health Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroHealth"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="ScaleFactor:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="ScaleFactor"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Damage Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroDamage"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="Mana Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="HeroManaPoints"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Level:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroLevel"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="Defence percentage:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="HeroDefencePercentage"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Hero Type:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroType"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="Number of times defeated:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="NumberOfTimesDefeated"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Hero Money:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroMoney"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="Number of enemies killed:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="NumberOfEnemiesKilled"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Text="Hero Experience Points:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    x:Name="HeroExperiencePoints"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="2"
+                    Text="Number of Dungeons cleared:"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="3"
+                    x:Name="NumberOfDungeonsCleared"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+            <Button
+                Text="Back to MainMenu"
+                Clicked="ReturnToGameLoopMenu"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
