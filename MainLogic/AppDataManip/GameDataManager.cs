@@ -1,4 +1,5 @@
 ﻿using MainLogic.GlobalParameters;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainLogic.AppDataManip;
 
@@ -6,28 +7,33 @@ public class GameDataManager(AppDataDbContext dbContext, ObjectMapper objectMapp
 {
     private static readonly GameStateParameters GameStateInstance = GameStateParameters.Instance;
 
-    public async Task SaveGameIntoFileSlot(int saveSlot)
+    public async Task<bool> SaveGameIntoFileSlot(int saveSlot)
     {
         await EnsureDatabaseCreatedAsync();
 
         var heroBase = objectMapper.ConvertHeroStats(GameStateInstance.HeroState.Hero, saveSlot);
         var gameStateBase = objectMapper.ConvertGameStateParameters(saveSlot);
 
-        // Check if the entries already exist
         var existingHero = await dbContext.Heroes.FindAsync(saveSlot);
         var existingState = await dbContext.GameStateParameters.FindAsync(saveSlot);
 
-        if (existingHero == null)
-            dbContext.Heroes.Add(heroBase);
-        else
-            dbContext.Heroes.Update(heroBase);
+        // Full overwrite: remove existing then add new
+        if (existingHero != null)
+        {
+            dbContext.Heroes.Remove(existingHero);
+        }
 
-        if (existingState == null)
-            dbContext.GameStateParameters.Add(gameStateBase);
-        else
-            dbContext.GameStateParameters.Update(gameStateBase);
+        dbContext.Heroes.Add(heroBase);
+
+        if (existingState != null)
+        {
+            dbContext.GameStateParameters.Remove(existingState);
+        }
+
+        dbContext.GameStateParameters.Add(gameStateBase);
 
         await dbContext.SaveChangesAsync();
+        return true;
     }
 
 

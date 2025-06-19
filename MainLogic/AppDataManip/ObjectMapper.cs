@@ -49,7 +49,7 @@ public class ObjectMapper
     {
         var state = GameStateParameters.Instance;
 
-        CopyGameStateParametersCommon(state, stateBase);
+        CopyGameStateParametersCommon(stateBase, state);
     }
 
     private void CopyGameStateParametersCommon(object source, object target)

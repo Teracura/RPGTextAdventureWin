@@ -36,12 +36,19 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
     {
         await using var context = Factory.CreateDbContext([]);
         var dataManager = new GameDataManager(context, Mapper);
+        GameManager.Start();
+
 
         if (GameStateParameters.Instance.Saving)
         {
-            OutputLabel.Text = "Game saved!";
+            OutputLabel.Text = "Saving... Please don't quit the game";
             await MakeOutputLabelVisibleAsync(3);
-            await dataManager.SaveGameIntoFileSlot(slotId);
+            GameStateParameters.Instance.Saving = false;
+            if (await dataManager.SaveGameIntoFileSlot(slotId))
+            {
+                OutputLabel.Text = "Save successful!";
+                await MakeOutputLabelVisibleAsync(3);
+            }
         }
         else if (!await dataManager.LoadGameFromFileSlot(slotId))
         {
@@ -50,11 +57,8 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
         }
         else
         {
-            GameManager.Start();
             GoToGameLoopMenu();
         }
-
-        GameStateParameters.Instance.Saving = false;
     }
 
     private async void ReturnToMainMenu(object? sender, EventArgs e)
