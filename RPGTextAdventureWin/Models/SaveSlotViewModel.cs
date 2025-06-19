@@ -1,6 +1,9 @@
-﻿namespace RPGTextAdventureWin.Models;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-public class SaveSlotViewModel
+namespace RPGTextAdventureWin.Models;
+
+public sealed class SaveSlotViewModel
 {
     public int SlotId { get; set; }
     public string DisplayText => $"Save file {SlotId}";

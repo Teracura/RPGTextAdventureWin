@@ -30,6 +30,8 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
         ];
 
         BindingContext = this;
+        
+        _ = LoadStatusesFromDbAsync();
     }
 
     private async Task SaveSelected(int slotId)
@@ -58,6 +60,28 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
         else
         {
             GoToGameLoopMenu();
+        }
+    }
+
+    private async Task LoadStatusesFromDbAsync()
+    {
+        await using var context = Factory.CreateDbContext([]);
+        var dataManager = new GameDataManager(context, Mapper);
+
+        for (var i = 1; i <= SaveSlots.Count; i++)
+        {
+            var slot = SaveSlots[i - 1];
+            var heroBase = await context.Heroes.FindAsync(i);
+            var gameStateBase = await context.GameStateParameters.FindAsync(i);
+
+            if (heroBase != null && gameStateBase != null)
+            {
+                slot.Status = $"Type: {heroBase.Type}, Type: {heroBase.Type}, ScaleFactor: {gameStateBase.ScaleFactor}";
+            }
+            else
+            {
+                slot.Status = "Empty";
+            }
         }
     }
 
