@@ -41,6 +41,7 @@ public partial class BattleMenu : ContentPage
     {
         MainThread.BeginInvokeOnMainThread((() =>
             HeroInformationBox.Text = message));
+        ShopManager.GetRandomShopItems(GameStateParameters.Instance.HeroState.Hero.Type!, 5);
         UpdateUI();
     }
 
@@ -69,7 +70,8 @@ public partial class BattleMenu : ContentPage
     {
         // Update Enemy Counter
         int totalEnemies =
-            GameStateParameters.Instance.DungeonState.NumberOfEnemiesPerDungeon; // Assuming you add this to GameStateParameters
+            GameStateParameters.Instance.DungeonState
+                .NumberOfEnemiesPerDungeon; // Assuming you add this to GameStateParameters
         EnemyCounter.Text =
             $"Battle starts! ({GameStateParameters.Instance.DungeonState.NumberOfEnemiesDefeated} Enemies defeated out of {totalEnemies})";
 
@@ -105,12 +107,14 @@ public partial class BattleMenu : ContentPage
     private async void RunAwayButtonClicked(object? sender, EventArgs e)
     {
         //TODO: Enemy attacks three times then run away
+        ShopManager.GetRandomShopItems(GameStateParameters.Instance.HeroState.Hero.Type!, 5);
         await Shell.Current.GoToAsync(nameof(GameLoopMenu));
     }
 
     private async void AttackButtonClicked(object? sender, EventArgs e)
     {
-        if (GameStateParameters.Instance.DungeonState.DungeonCleared || GameStateParameters.Instance.HeroState.IsDefeated)
+        if (GameStateParameters.Instance.DungeonState.DungeonCleared ||
+            GameStateParameters.Instance.HeroState.IsDefeated)
         {
             await Shell.Current.GoToAsync(nameof(GameLoopMenu));
         }

@@ -74,6 +74,146 @@ namespace MainLogic.AppDataManip.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("Entities.Items.Item", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SaveSlot")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ItemId");
+
+                    b.ToTable("ShopItems");
+                });
+
+            modelBuilder.Entity("Entities.Items.OwnedItemsBase", b =>
+                {
+                    b.Property<int>("SaveSlot")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_ArmorOfTheElves")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_BootsOfTheElves")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_BowOfTheElves")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_Crossbow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_HunterArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_LongBow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_QuickBow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_SneakingBoots")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Archer_TraineeArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_BigHealingPotion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_BigManaPotion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_BlessingOfLife")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_BlessingOfTheMagician")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_KaitoKey")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_SmallHealingPotion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Common_SmallManaPotion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_CharmOfTheWind")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_ManaAmulet")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_OrbOfTheArchmage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_SpellBook")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_StaffOfTheArchmage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_StaffOfTheRoyalWizard")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_WizardStaff")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mage_WoodenStaff")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_ArmorOfMarcus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_ChainMailArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_IronShield")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_IronSword")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_LeatherArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_PlateArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_ShieldOfMarcus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_SwordOfMarcus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_WoodenShield")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Warrior_WoodenSword")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("SaveSlot");
+
+                    b.ToTable("OwnedItems");
+                });
+
             modelBuilder.Entity("MainLogic.GlobalParameters.BaseEntities.GameStateParametersBaseEntity", b =>
                 {
                     b.Property<int>("SaveSlot")

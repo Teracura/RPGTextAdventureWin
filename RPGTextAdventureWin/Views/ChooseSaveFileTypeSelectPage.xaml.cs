@@ -10,7 +10,6 @@ namespace RPGTextAdventureWin.Views;
 
 public partial class ChooseSaveFileTypeSelectPage : ContentPage
 {
-    private static readonly AppDataDbContextFactory Factory = new();
     public ObservableCollection<SaveSlotViewModel> SaveSlots { get; set; }
     private static readonly ObjectMapper Mapper = new();
 
@@ -27,45 +26,49 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
             new SaveSlotViewModel { SlotId = 1, ClickCommand = new Command(() => _ = SaveSelected(1)) },
             new SaveSlotViewModel { SlotId = 2, ClickCommand = new Command(() => _ = SaveSelected(2)) },
             new SaveSlotViewModel { SlotId = 3, ClickCommand = new Command(() => _ = SaveSelected(3)) }
-        ];
+        ]; //issue to solve: a bought item resets back to non-bought upon saving and loading (and re-opening)
 
         BindingContext = this;
-        
+
         _ = LoadStatusesFromDbAsync();
     }
 
     private async Task SaveSelected(int slotId)
     {
-        await using var context = Factory.CreateDbContext([]);
+        var context = new AppDataDbContext();
         var dataManager = new GameDataManager(context, Mapper);
         GameManager.Start();
 
 
         if (GameStateParameters.Instance.Saving)
         {
-            OutputLabel.Text = "Saving... Please don't quit the game";
-            await MakeOutputLabelVisibleAsync(3);
             GameStateParameters.Instance.Saving = false;
-            if (await dataManager.SaveGameIntoFileSlot(slotId))
+            try
             {
+                await dataManager.SaveGameIntoFileSlot(slotId);
                 OutputLabel.Text = "Save successful!";
-                await MakeOutputLabelVisibleAsync(3);
             }
+            catch (Exception e)
+            {
+                OutputLabel.Text = e.InnerException?.Message ?? e.Message;
+            }
+
+            OutputLabel.IsVisible = true;
         }
         else if (!await dataManager.LoadGameFromFileSlot(slotId))
         {
             OutputLabel.Text = "No save file found!";
-            await MakeOutputLabelVisibleAsync(3);
+            OutputLabel.IsVisible = true;
         }
         else
         {
-            GoToGameLoopMenu();
+            await GoToGameLoopMenu();
         }
     }
 
     private async Task LoadStatusesFromDbAsync()
     {
-        await using var context = Factory.CreateDbContext([]);
+        var context = new AppDataDbContext();
         var dataManager = new GameDataManager(context, Mapper);
 
         for (var i = 1; i <= SaveSlots.Count; i++)
@@ -87,18 +90,11 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 
     private async void ReturnToMainMenu(object? sender, EventArgs e)
     {
-        GoToGameLoopMenu();
+        await GoToGameLoopMenu();
     }
 
-    private async void GoToGameLoopMenu()
+    private async Task GoToGameLoopMenu()
     {
         await Shell.Current.GoToAsync(nameof(GameLoopMenu));
-    }
-
-    private async Task MakeOutputLabelVisibleAsync(decimal timeSeconds)
-    {
-        OutputLabel.IsVisible = true;
-        await Task.Delay((int)(timeSeconds * 1000));
-        OutputLabel.IsVisible = false;
     }
 }

@@ -58,184 +58,44 @@
                     FontSize="20"
                     LineBreakMode="WordWrap" />
             </Grid>
-
-
-            <!--ShopGrids-->
-            <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolder"
-                    x:Name="ItemName1"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolder"
-                    x:Name="ItemPrice1"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="2"
-                    Text="PlaceHolder"
-                    x:Name="ItemDescription1"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Button
-                    Grid.Column="3"
-                    Text="Buy This item!"
-                    x:Name="PurchaseButton1"
-                    Clicked="PurchaseButton1Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolder"
-                    x:Name="ItemName2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolder"
-                    x:Name="ItemPrice2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="2"
-                    Text="PlaceHolder"
-                    x:Name="ItemDescription2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Button
-                    Grid.Column="3"
-                    Text="Buy This item!"
-                    Clicked="PurchaseButton2Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolder"
-                    x:Name="ItemName3"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolder"
-                    x:Name="ItemPrice3"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="2"
-                    Text="PlaceHolder"
-                    x:Name="ItemDescription3"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Button
-                    Grid.Column="3"
-                    Text="Buy This item!"
-                    Clicked="PurchaseButton3Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolder"
-                    x:Name="ItemName4"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolder"
-                    x:Name="ItemPrice4"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="2"
-                    Text="PlaceHolder"
-                    x:Name="ItemDescription4"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Button
-                    Grid.Column="3"
-                    Text="Buy This item!"
-                    Clicked="PurchaseButton4Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolder"
-                    x:Name="ItemName5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolder"
-                    x:Name="ItemPrice5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="2"
-                    Text="PlaceHolder"
-                    x:Name="ItemDescription5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Button
-                    Grid.Column="3"
-                    Text="Buy This item!"
-                    Clicked="PurchaseButton5Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
+            
+            <CollectionView ItemsSource="{Binding ShopSlots}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding ItemName}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding ItemPrice}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding ItemDescription}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Button
+                                Grid.Column="3"
+                                Text="{Binding ButtonText}"
+                                Command="{Binding PurchaseCommand}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button
                 Text="Return to main menu"

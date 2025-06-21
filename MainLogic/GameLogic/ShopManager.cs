@@ -1,22 +1,47 @@
 ﻿using Entities.Items;
+using MainLogic.GlobalParameters;
 
 namespace MainLogic.GameLogic;
 
-public class ShopManager
+public static class ShopManager
 {
-    public static IEnumerable<Item> GetRandomShopItems(string heroType, int count = 5)
+    public static List<Item> ShopItems { get; set; } = [];
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
+
+    public static void GetRandomShopItems(string heroType, int count = 5)
     {
         var availableItems = ItemCatalog.GetItemsForHero(heroType).ToList();
         var random = new Random();
-        var shopItems = new List<Item>();
-            
+        ShopItems.Clear();
+
         for (var i = 0; i < count && availableItems.Count > 0; i++)
         {
             var index = random.Next(availableItems.Count);
-            shopItems.Add(availableItems[index]);
+            ShopItems.Add(availableItems[index]);
             availableItems.RemoveAt(index);
         }
-            
-        return shopItems;
+    }
+
+    public static bool BuyItem(int purchaseId)
+    {
+        var item = ShopItems[purchaseId];
+        if (Instance.HeroState.Hero.Money < item.Price)
+        {
+            return false;
+        }
+        Instance.HeroState.Hero.Money -= item.Price;
+        Instance.OwnedItemsList.Items[item.Type]++;
+        return true;
+    }
+
+    public static void SellItem(int sellId)
+    {
+        var listOfItems = Instance.OwnedItemsList.Items;
+        if (sellId < 1 || sellId >= listOfItems.Count + 1)
+            throw new ArgumentOutOfRangeException(nameof(sellId), "Invalid item index.");
+        var itemValue = listOfItems.ElementAt(sellId - 1).Key;
+        var item = ItemCatalog.GetItemData(itemValue);
+        listOfItems[itemValue]--;
+        Instance.HeroState.Hero.Money += (int)(item.Price * 0.6);
     }
 }

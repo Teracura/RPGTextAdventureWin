@@ -7,4 +7,5 @@ public class GameStateParameters
     public MetaProgressionState MetaProgressionState { get; } = new();
     public HeroState HeroState { get; } = new();
     public DungeonState DungeonState { get; } = new();
+    public OwnedItemsList OwnedItemsList { get; } = new();
 }

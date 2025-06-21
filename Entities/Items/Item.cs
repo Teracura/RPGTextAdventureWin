@@ -1,11 +1,24 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Entities.Items;
 
-public class Item(ItemTypes type, string name, string description, int price)
+public class Item
 {
-    public ItemTypes Type { get; } = type;
-    public string Name { get; } = name;
-    public string Description { get; } = description;
-    public int Price { get; } = price;
+    public Item(){}
+    public Item(ItemTypes type, string name, string description, int price)
+    {
+        Type = type;
+        Name = name;
+        Description = description;
+        Price = price;
+    }
+    [Key]
+    public int ItemId { get; set; }
+    public ItemTypes Type { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public int Price { get; set; }
+    public int SaveSlot { get; set; }
 
     public bool CanBeUsedBy(string heroType)
     {

@@ -9,6 +9,7 @@ namespace RPGTextAdventureWin.Views;
 public partial class NewGameHeroTypeSelectPage : ContentPage
 {
     private readonly HeroCreator _heroCreator = new();
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
 
     public NewGameHeroTypeSelectPage()
     {
@@ -43,9 +44,11 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
 
     private void InitializeHero(IHero hero)
     {
-        GameStateParameters.Instance.HeroState.Hero = hero;
-        GameStateParameters.Instance.MetaProgressionState.ScaleFactor = 1m;
-        GameStateParameters.Instance.DungeonState.NumberOfEnemiesPerDungeon = 5;
+        Instance.HeroState.Hero = hero;
+        Instance.MetaProgressionState.ScaleFactor = 1m;
+        Instance.DungeonState.NumberOfEnemiesPerDungeon = 5;
+        ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
+        
         GameManager.Start();
     }
 }

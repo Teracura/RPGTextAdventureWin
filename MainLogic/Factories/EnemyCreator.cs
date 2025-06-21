@@ -8,16 +8,17 @@ internal class EnemyCreator
 {
     private readonly Dictionary<EnemyType, Func<IEnemy>> _enemyFactories;
     private readonly Random _random = new();
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
 
     public EnemyCreator()
     {
         _enemyFactories = new Dictionary<EnemyType, Func<IEnemy>>
         {
-            { EnemyType.Goon, () => new Goon(GameStateParameters.Instance.MetaProgressionState.ScaleFactor) },
-            { EnemyType.Junga, () => new Junga(GameStateParameters.Instance.MetaProgressionState.ScaleFactor) },
-            { EnemyType.HomboCombo, () => new HomboCombo(GameStateParameters.Instance.MetaProgressionState.ScaleFactor) },
-            { EnemyType.Dragon, () => new Dragon(GameStateParameters.Instance.MetaProgressionState.ScaleFactor) },
-            { EnemyType.Duck, () => new Duck(GameStateParameters.Instance.MetaProgressionState.ScaleFactor) }
+            { EnemyType.Goon, () => new Goon(Instance.MetaProgressionState.ScaleFactor) },
+            { EnemyType.Junga, () => new Junga(Instance.MetaProgressionState.ScaleFactor) },
+            { EnemyType.HomboCombo, () => new HomboCombo(Instance.MetaProgressionState.ScaleFactor) },
+            { EnemyType.Dragon, () => new Dragon(Instance.MetaProgressionState.ScaleFactor) },
+            { EnemyType.Duck, () => new Duck(Instance.MetaProgressionState.ScaleFactor) }
         };
     }
 

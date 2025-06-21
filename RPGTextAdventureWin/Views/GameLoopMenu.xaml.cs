@@ -18,14 +18,14 @@ public partial class GameLoopMenu : ContentPage
         {
             GameStateParameters.Instance.DungeonState.DungeonCleared = false;
             ResultStatus.Text = "Another glorious victory! You may rest now hero.";
-            _ = TimerBeforeTextDisappearAsync(ResultStatus, 5);
+            ResultStatus.IsVisible = true;
         }
         else if (GameStateParameters.Instance.HeroState.IsDefeated)
         {
             GameStateParameters.Instance.HeroState.IsDefeated = false;
             ResultStatus.Text =
                 "Hero? thank god you are awake! you were dragged by us when we saw you fallen in battle";
-            _ = TimerBeforeTextDisappearAsync(ResultStatus, 5);
+            ResultStatus.IsVisible = true;
         }
     }
 
@@ -43,7 +43,7 @@ public partial class GameLoopMenu : ContentPage
     {
         GameManager.RestoreStats();
         ResultStatus.Text = "Stats Restored!";
-        await TimerBeforeTextDisappearAsync(ResultStatus, 3m);
+        ResultStatus.IsVisible = true;
     }
 
     private async void OpenShopClicked(object? sender, EventArgs e)
@@ -63,11 +63,5 @@ public partial class GameLoopMenu : ContentPage
     {
         GameStateParameters.Instance.Saving = true;
         await Shell.Current.GoToAsync(nameof(ChooseSaveFileTypeSelectPage));
-    }
-
-    private async Task TimerBeforeTextDisappearAsync(Label label, decimal timeSeconds)
-    {
-        await Task.Delay((int)(timeSeconds * 1000));
-        label.Text = "";
     }
 }
