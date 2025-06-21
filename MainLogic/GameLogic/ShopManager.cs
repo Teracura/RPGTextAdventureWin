@@ -7,7 +7,6 @@ public static class ShopManager
 {
     public static List<Item> ShopItems { get; set; } = [];
     private static readonly GameStateParameters Instance = GameStateParameters.Instance;
-
     public static void GetRandomShopItems(string heroType, int count = 5)
     {
         var availableItems = ItemCatalog.GetItemsForHero(heroType).ToList();
@@ -22,15 +21,18 @@ public static class ShopManager
         }
     }
 
-    public static bool BuyItem(int purchaseId)
+    public static bool BuyItem(Item item)
     {
-        var item = ShopItems[purchaseId];
-        if (Instance.HeroState.Hero.Money < item.Price)
-        {
+        if (!ShopItems.Contains(item))
             return false;
-        }
+
+        if (Instance.HeroState.Hero.Money < item.Price)
+            return false;
+
         Instance.HeroState.Hero.Money -= item.Price;
         Instance.OwnedItemsList.Items[item.Type]++;
+        ShopItems.Remove(item);
+
         return true;
     }
 

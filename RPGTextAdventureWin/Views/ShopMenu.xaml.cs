@@ -20,6 +20,11 @@ public partial class ShopMenu : ContentPage
     {
         InitializeComponent();
         HeroMoney.Text = GameStateParameters.Instance.HeroState.Hero.Money.ToString();
+        BuildSlots();
+    }
+
+    private void BuildSlots()
+    {
         ShopSlots = new ObservableCollection<ShopSlotViewModel>(
             ShopManager.ShopItems.Select((item, purchaseId) =>
             {
@@ -29,10 +34,11 @@ public partial class ShopMenu : ContentPage
                     item.Description,
                     item.Price,
                     "Purchase",
-                    null! // temporary, will set after
+                    null!, null!// temporary, will set after
                 );
 
                 slot.PurchaseCommand = new Command(() => _ = PurchaseButtonClicked(slot));
+                slot.Item = item;
                 return slot;
             })
         );
@@ -53,7 +59,7 @@ public partial class ShopMenu : ContentPage
             return;
         }
 
-        var purchasePassed = ShopManager.BuyItem(slot.PurchaseId);
+        var purchasePassed = ShopManager.BuyItem(slot.Item);
         if (!purchasePassed)
         {
             ShopInformationBox.Text = "Invalid purchase: Not enough money.";

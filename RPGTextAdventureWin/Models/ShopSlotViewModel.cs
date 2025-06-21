@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Entities.Items;
 
 namespace RPGTextAdventureWin.Models;
 
@@ -9,7 +10,8 @@ public class ShopSlotViewModel(
     string description,
     int price,
     string buttonText,
-    Command purchaseCommand)
+    Command purchaseCommand,
+    Item item)
     : INotifyPropertyChanged
 {
     public int PurchaseId { get; } = purchaseId;
@@ -40,7 +42,14 @@ public class ShopSlotViewModel(
         get => _purchaseCommand;
         set => SetField(ref _purchaseCommand, value);
     }
+    
+    private Item _item = item;
 
+    public Item Item
+    {
+        get => _item;
+        set => SetField(ref _item, value);
+    }
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

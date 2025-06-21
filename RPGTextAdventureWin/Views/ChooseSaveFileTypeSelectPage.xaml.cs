@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using MainLogic;
+using Entities.Heroes;
 using MainLogic.AppDataManip;
-using MainLogic.Factories;
 using MainLogic.GameLogic;
 using MainLogic.GlobalParameters;
+using MainLogic.GlobalParameters.BaseEntities;
+using Microsoft.EntityFrameworkCore;
 using RPGTextAdventureWin.Models;
 
 namespace RPGTextAdventureWin.Views;
@@ -12,6 +13,7 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 {
     public ObservableCollection<SaveSlotViewModel> SaveSlots { get; set; }
     private static readonly ObjectMapper Mapper = new();
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
 
     public ChooseSaveFileTypeSelectPage()
     {
@@ -21,19 +23,30 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
             ReturnToMenu.IsVisible = true;
         }
 
-        SaveSlots =
-        [
-            new SaveSlotViewModel { SlotId = 1, ClickCommand = new Command(() => _ = SaveSelected(1)) },
-            new SaveSlotViewModel { SlotId = 2, ClickCommand = new Command(() => _ = SaveSelected(2)) },
-            new SaveSlotViewModel { SlotId = 3, ClickCommand = new Command(() => _ = SaveSelected(3)) }
-        ]; //issue to solve: a bought item resets back to non-bought upon saving and loading (and re-opening)
+        SaveSlots = new ObservableCollection<SaveSlotViewModel>(
+            Enumerable.Range(1, 3).Select(slotId =>
+            {
+                var slot = new SaveSlotViewModel { SlotId = slotId };
+                slot.ClickCommand = new Command(() => _ = SaveSelected(slot));
+                return slot;
+            })
+        );
 
         BindingContext = this;
-
-        _ = LoadStatusesFromDbAsync();
     }
 
-    private async Task SaveSelected(int slotId)
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        OutputLabel.IsVisible = true;
+        OutputLabel.Text = "Loading... please wait";
+
+        await Task.Yield();
+        await LoadStatusesFromDbAsync();
+        OutputLabel.IsVisible = false;
+    }
+
+    private async Task SaveSelected(SaveSlotViewModel slot)
     {
         var context = new AppDataDbContext();
         var dataManager = new GameDataManager(context, Mapper);
@@ -42,11 +55,13 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 
         if (GameStateParameters.Instance.Saving)
         {
-            GameStateParameters.Instance.Saving = false;
             try
             {
-                await dataManager.SaveGameIntoFileSlot(slotId);
+                await dataManager.SaveGameIntoFileSlot(slot.SlotId);
                 OutputLabel.Text = "Save successful!";
+                GameStateParameters.Instance.Saving = false;
+                slot.Status =
+                    $"Type: {Instance.HeroState.Hero.Type}, ScaleFactor: {Instance.MetaProgressionState.ScaleFactor}";
             }
             catch (Exception e)
             {
@@ -55,7 +70,7 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 
             OutputLabel.IsVisible = true;
         }
-        else if (!await dataManager.LoadGameFromFileSlot(slotId))
+        else if (!await dataManager.LoadGameFromFileSlot(slot.SlotId))
         {
             OutputLabel.Text = "No save file found!";
             OutputLabel.IsVisible = true;
@@ -69,17 +84,15 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
     private async Task LoadStatusesFromDbAsync()
     {
         var context = new AppDataDbContext();
-        var dataManager = new GameDataManager(context, Mapper);
 
-        for (var i = 1; i <= SaveSlots.Count; i++)
+        foreach (var slot in SaveSlots)
         {
-            var slot = SaveSlots[i - 1];
-            var heroBase = await context.Heroes.FindAsync(i);
-            var gameStateBase = await context.GameStateParameters.FindAsync(i);
+            var heroBase = await context.Heroes.FindAsync(slot.SlotId);
+            var gameStateBase = await context.GameStateParameters.FindAsync(slot.SlotId);
 
             if (heroBase != null && gameStateBase != null)
             {
-                slot.Status = $"Type: {heroBase.Type}, Type: {heroBase.Type}, ScaleFactor: {gameStateBase.ScaleFactor}";
+                slot.Status = $"Type: {heroBase.Type}, ScaleFactor: {gameStateBase.ScaleFactor}";
             }
             else
             {
