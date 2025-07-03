@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities.Enemies;
+﻿using System.Collections.ObjectModel;
 using Entities.Heroes;
-using MainLogic;
 using MainLogic.GameLogic;
 using MainLogic.GlobalParameters;
+using RPGTextAdventureWin.Models;
 
 namespace RPGTextAdventureWin.Views;
 
 public partial class BattleMenu : ContentPage
 {
+    public ObservableCollection<StatsShowViewModel> StatsSlots { get; set; }
     public BattleMenu()
     {
         InitializeComponent();
+        StatsSlots =
+        [
+            new StatsShowViewModel("Health Points:", "", "Enemy Health:", ""),
+            new StatsShowViewModel("Mana Points:", "", "Enemy Scale Factor:", ""),
+        ];
         SubscribeToGameEvents();
         GameManager.InitiateFight();
         UpdateUI();
+        BindingContext = this;
     }
 
     protected override void OnAppearing()
@@ -79,23 +81,23 @@ public partial class BattleMenu : ContentPage
         IHero currentHero = GameStateParameters.Instance.HeroState.Hero;
         var maxHp = currentHero.CalculateMaxHp();
         HeroName.Text = currentHero.Type!;
-        HeroHealth.Text = $"{currentHero.Hp} / {maxHp}";
-        HeroMana.Text = $"{currentHero.Mp} / {currentHero.CalculateMaxMp()}";
+        StatsSlots[0].StatValue1 = $"{currentHero.Hp} / {maxHp}";
+        StatsSlots[1].StatValue1 = $"{currentHero.Mp} / {currentHero.CalculateMaxMp()}";
 
         var currentEnemy = CombatManager.CurrentEnemy;
         // OR: Make a public static method in GameManager: GameManager.GetCurrentEnemy()
         if (currentEnemy != null)
         {
             EnemyName.Text = currentEnemy.Type;
-            EnemyHealth.Text = $"{currentEnemy.Hp} / {currentEnemy.MaxHp}";
-            ScaleFactor.Text = $"{GameStateParameters.Instance.MetaProgressionState.ScaleFactor}";
+            StatsSlots[0].StatValue2 = $"{currentEnemy.Hp} / {currentEnemy.MaxHp}";
+            StatsSlots[1].StatValue2 = $"{GameStateParameters.Instance.MetaProgressionState.ScaleFactor}";
         }
         else
         {
             // Handle case where no enemy is present (e.g., victory, between enemies)
             EnemyName.Text = "No Enemy";
-            EnemyHealth.Text = "N/A";
-            ScaleFactor.Text = "N/A";
+            StatsSlots[0].StatValue2 = "N/A";
+            StatsSlots[1].StatValue2 = "N/A";
         }
     }
 
