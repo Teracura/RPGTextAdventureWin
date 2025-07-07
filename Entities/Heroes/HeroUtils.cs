@@ -10,10 +10,11 @@ public static class HeroUtils
         return level switch
         {
             <= 20 => (int)Math.Floor(Math.Pow(level, 1.5) * 100),
-            <= 40 => (int)Math.Floor(Math.Pow(level, 1.4) * 130),
-            <= 60 => (int)Math.Floor(Math.Pow(level, 1.3) * 185),
-            <= 80 => (int)Math.Floor(Math.Pow(level, 1.2) * 280),
-            _ => (int)Math.Floor(Math.Pow(level, 1.1) * 425)
+            <= 40 => (int)Math.Floor(Math.Pow(level, 1.47) * 115),
+            <= 60 => (int)Math.Floor(Math.Pow(level, 1.43) * 140),
+            <= 80 => (int)Math.Floor(Math.Pow(level, 1.4) * 165),
+            <= 100 => (int)Math.Floor(Math.Pow(level, 1.38) * 185),
+            _ => (int)Math.Floor(Math.Pow(level, 2.5) * 1.13), //violence
         };
     }
 
@@ -50,7 +51,7 @@ public static class HeroUtils
         };
     }
 
-    public static void ApplyItemBenefits(this IHero hero, Item item)
+    public static void ApplyEquipmentBenefits(this IHero hero, Item item)
     {
         // Apply based on item type using switch expression
         _ = item.Type switch
@@ -88,11 +89,11 @@ public static class HeroUtils
             ItemTypes.Mage_OrbOfTheArchmage => hero.Mp += 200,
             ItemTypes.Mage_CharmOfTheWind => hero.Mp += 300,
 
-            _ => 0
+            _ => throw new Exception("Don't apply an equipment benefit of an item that is not considered 'equipment'")
         };
     }
 
-    public static void RemoveItemBenefits(this IHero hero, Item? item)
+    public static void RemoveEquipmentBenefits(this IHero hero, Item? item)
     {
         if (item == null) return;
 
@@ -130,7 +131,7 @@ public static class HeroUtils
             ItemTypes.Mage_OrbOfTheArchmage => hero.Mp -= 200,
             ItemTypes.Mage_CharmOfTheWind => hero.Mp -= 300,
 
-            _ => 0
+            _ => throw new Exception("Don't remove an equipment benefit of an item that is not considered 'equipment'")
         };
     }
 

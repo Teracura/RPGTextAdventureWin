@@ -19,11 +19,11 @@ public partial class InventoryMenu : ContentPage
         InitializeComponent();
         
         InventorySlots = [];
-        foreach (var itemPair in Instance.OwnedItemsList.Items)
+        foreach (var pair in Instance.OwnedItemsList.Items)
         {
-            if (itemPair.Value <= 0) continue;
-            var item = ItemCatalog.GetItemData(itemPair.Key);
-            InventorySlots.Add(new InventoryShowViewModel(item.Name,itemPair.Value, item.Description));
+            if (pair.Value <= 0) continue;
+            var item = ItemCatalog.GetItemData(pair.Key);
+            InventorySlots.Add(new InventoryShowViewModel(item.Name,pair.Value, item.Description));
         }
         BindingContext = this;
     }

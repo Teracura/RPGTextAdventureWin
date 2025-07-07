@@ -10,6 +10,7 @@ namespace MainLogic.AppDataManip;
 public class ObjectMapper
 {
     public readonly GameStateParameters Instance = GameStateParameters.Instance;
+
     public void ConvertDictionaryStats(OwnedItemsBase ownedItemsBase)
     {
         var ownedItems = Instance.OwnedItemsList.Items;
@@ -56,10 +57,8 @@ public class ObjectMapper
     public GameStateParametersBaseEntity ConvertGameStateParameters(int saveId)
     {
         var state = GameStateParameters.Instance;
-        var stateBase = new GameStateParametersBaseEntity();
-
-        CopyGameStateParametersCommon(state, stateBase);
-        stateBase.SaveSlot = saveId;
+        var stateBase = CopyGameStateParametersCommon(state);
+        stateBase!.SaveSlot = saveId; //won't be null trust me bro
         return stateBase;
     }
 
@@ -70,23 +69,28 @@ public class ObjectMapper
         CopyGameStateParametersCommon(stateBase, state);
     }
 
-    private void CopyGameStateParametersCommon(object source, object target)
+    private GameStateParametersBaseEntity? CopyGameStateParametersCommon(object source, object? target = null)
     {
         switch ((source, target))
         {
-            case (GameStateParameters src, GameStateParametersBaseEntity dest):
-                dest.Saving = src.Saving;
-                dest.DungeonCleared = src.DungeonState.DungeonCleared;
-                dest.GlobalTimesDefeated = src.MetaProgressionState.GlobalTimesDefeated;
-                dest.GlobalEnemiesKilled = src.MetaProgressionState.GlobalEnemiesKilled;
-                dest.GlobalDungeonsCleared = src.MetaProgressionState.GlobalDungeonsCleared;
-                dest.KaitoKeyEffect = src.MetaProgressionState.KaitoKeyEffect;
-                dest.ScaleFactor = src.MetaProgressionState.ScaleFactor;
-                dest.NumberOfEnemiesDefeated = src.DungeonState.NumberOfEnemiesDefeated;
-                dest.NumberOfEnemiesPerDungeon = src.DungeonState.NumberOfEnemiesPerDungeon;
-                dest.IsDefeated = src.HeroState.IsDefeated;
-                dest.EnemyDefeated = src.DungeonState.EnemyDefeated;
-                break;
+            case (GameStateParameters src, null):
+                return new GameStateParametersBaseEntity(
+                    saveSlot: -1, // will be reassigned later
+                    saving: src.Saving,
+                    isDefeated: src.HeroState.IsDefeated,
+                    equippedWeapon: src.HeroState.EquippedWeapon,
+                    equippedArmor: src.HeroState.EquippedArmor,
+                    equippedAccessory: src.HeroState.EquippedAccessory,
+                    scaleFactor: src.MetaProgressionState.ScaleFactor,
+                    globalEnemiesKilled: src.MetaProgressionState.GlobalEnemiesKilled,
+                    globalTimesDefeated: src.MetaProgressionState.GlobalTimesDefeated,
+                    globalDungeonsCleared: src.MetaProgressionState.GlobalDungeonsCleared,
+                    kaitoKeyEffect: src.MetaProgressionState.KaitoKeyEffect,
+                    numberOfEnemiesPerDungeon: src.DungeonState.NumberOfEnemiesPerDungeon,
+                    numberOfEnemiesDefeated: src.DungeonState.NumberOfEnemiesDefeated,
+                    enemyDefeated: src.DungeonState.EnemyDefeated,
+                    dungeonCleared: src.DungeonState.DungeonCleared
+                );
             case (GameStateParametersBaseEntity src, GameStateParameters dest):
                 dest.Saving = src.Saving;
                 dest.DungeonState.DungeonCleared = src.DungeonCleared;
@@ -97,12 +101,18 @@ public class ObjectMapper
                 dest.MetaProgressionState.ScaleFactor = src.ScaleFactor;
                 dest.DungeonState.NumberOfEnemiesDefeated = src.NumberOfEnemiesDefeated;
                 dest.DungeonState.NumberOfEnemiesPerDungeon = src.NumberOfEnemiesPerDungeon;
-                dest.HeroState.IsDefeated = src.IsDefeated;
                 dest.DungeonState.EnemyDefeated = src.EnemyDefeated;
+                dest.HeroState.IsDefeated = src.IsDefeated;
+                dest.HeroState.EquippedAccessory =
+                    ItemCatalog.GetItemData(src.EquippedAccessory)?.Type ?? ItemTypes.Nothing;
+                dest.HeroState.EquippedArmor = ItemCatalog.GetItemData(src.EquippedArmor)?.Type ?? ItemTypes.Nothing;
+                dest.HeroState.EquippedWeapon = ItemCatalog.GetItemData(src.EquippedWeapon)?.Type ?? ItemTypes.Nothing;
                 break;
             default:
                 throw new InvalidOperationException("Unsupported mapping types.");
         }
+
+        return null;
     }
 
     private void CopyHeroStatsCommon(object source, object target)
@@ -194,6 +204,7 @@ public class ObjectMapper
                 {
                     Debug.WriteLine($"{item.Key}: {item.Value}");
                 }
+
                 break;
 
             case (OwnedItemsBase src, Dictionary<ItemTypes, int> dest):
@@ -235,16 +246,10 @@ public class ObjectMapper
                 dest[ItemTypes.Mage_SpellBook] = src.Mage_SpellBook;
                 dest[ItemTypes.Mage_OrbOfTheArchmage] = src.Mage_OrbOfTheArchmage;
                 dest[ItemTypes.Mage_CharmOfTheWind] = src.Mage_CharmOfTheWind;
-                Debug.WriteLine("=== Loaded items ===");
-                foreach (var item in dest)
-                {
-                    Debug.WriteLine($"{item.Key}: {item.Value}");
-                }
                 break;
 
             default:
                 throw new InvalidOperationException("Unsupported mapping types.");
         }
-
     }
 }

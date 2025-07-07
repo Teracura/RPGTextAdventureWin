@@ -122,14 +122,14 @@ public class Mage : IHero
         // Get the current item in the slot (if any)
         if (Equipment.TryGetValue(slot, out var currentItem) && currentItem != null)
         {
-            this.RemoveItemBenefits(currentItem);
+            this.RemoveEquipmentBenefits(currentItem);
         }
 
         // Set the new item
         Equipment[slot] = item;
 
         // Apply the item's benefits
-        this.ApplyItemBenefits(item);
+        this.ApplyEquipmentBenefits(item);
 
         return true;
     }
@@ -139,7 +139,7 @@ public class Mage : IHero
         if (!Equipment.TryGetValue(slot, out var item) || item == null) return;
 
         // Remove the item's benefits
-        this.RemoveItemBenefits(item);
+        this.RemoveEquipmentBenefits(item);
 
         Equipment[slot] = null;
     }

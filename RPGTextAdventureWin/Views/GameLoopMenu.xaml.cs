@@ -51,8 +51,9 @@ public partial class GameLoopMenu : ContentPage
         await Shell.Current.GoToAsync(nameof(ShopMenu));
     }
 
-    private void ShowEquipmentClicked(object? sender, EventArgs e)
+    private async void ShowEquipmentClicked(object? sender, EventArgs e)
     {
+        await Shell.Current.GoToAsync(nameof(EquipmentSlotMenu));
     }
 
     private async void ShowInventoryClicked(object? sender, EventArgs e)

@@ -2,7 +2,7 @@ using Entities.Heroes;
 
 namespace Entities.Enemies;
 
-public class HomboCombo : IEnemy
+public class HomboCombo : IEnemy //out of all names I chose this name
 {
     public decimal Hp { get; set; }
     public int MaxHp { get; set; }

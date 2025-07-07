@@ -25,4 +25,11 @@
       <Folder Include="AppDataManip\Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="SavingAndLoadingData.db" />
+      <Content Include="SavingAndLoadingData.db">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

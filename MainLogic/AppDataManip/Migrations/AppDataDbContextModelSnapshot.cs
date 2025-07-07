@@ -84,6 +84,10 @@ namespace MainLogic.AppDataManip.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EquipmentCategory")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -223,6 +227,15 @@ namespace MainLogic.AppDataManip.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("EnemyDefeated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquippedAccessory")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquippedArmor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquippedWeapon")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("GlobalDungeonsCleared")

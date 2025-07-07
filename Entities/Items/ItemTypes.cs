@@ -43,4 +43,7 @@ public enum ItemTypes
     Mage_SpellBook,
     Mage_OrbOfTheArchmage,
     Mage_CharmOfTheWind,
+    
+    // Literally nothing
+    Nothing,
 }

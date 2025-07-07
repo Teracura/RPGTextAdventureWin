@@ -16,6 +16,7 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
         InitializeComponent();
     }
 
+    //TODO: preferably use unified method instead of three separate methods below
     private void MageSelected(object? sender, EventArgs e)
     {
         var hero = _heroCreator.CreateNewHero("Mage");
@@ -46,7 +47,7 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
     {
         Instance.HeroState.Hero = hero;
         Instance.MetaProgressionState.ScaleFactor = 1m;
-        Instance.DungeonState.NumberOfEnemiesPerDungeon = 5;
+        Instance.DungeonState.NumberOfEnemiesPerDungeon = 5; //default values, don't change unless related to game balance
         ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
         
         GameManager.Start();

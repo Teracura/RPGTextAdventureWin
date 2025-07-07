@@ -34,11 +34,11 @@ public partial class ShopMenu : ContentPage
                     item.Description,
                     item.Price,
                     "Purchase",
-                    null!, null!// temporary, will set after
+                    null!, null!// oooo very scary nulls
                 );
 
                 slot.PurchaseCommand = new Command(() => _ = PurchaseButtonClicked(slot));
-                slot.Item = item;
+                slot.Item = item; // rip nulls
                 return slot;
             })
         );

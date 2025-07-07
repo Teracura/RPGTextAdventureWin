@@ -1,0 +1,124 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.EquipmentSlotMenu">
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="10" Spacing="15">
+                <Label
+                    Text="Equipment Page"
+                    HorizontalOptions="Center"
+                    FontSize="24"
+                    Margin="0,20,0,10" />
+                <Grid ColumnDefinitions="1.5*, 3*, Auto" ColumnSpacing="10" Margin="0,20,0,10">
+                    <Label Grid.Column="0"
+                           Text="Equipped Equipment"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           FontSize="16"
+                           LineBreakMode="WordWrap" />
+
+                    <Label Grid.Column="1"
+                           Text="Equipment Description"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           FontSize="16"
+                           LineBreakMode="WordWrap" />
+
+                    <Label Grid.Column="2"
+                           Text="Unequip button"
+                           VerticalOptions="Center"
+                           FontSize="14"
+                           Padding="10,0" />
+                </Grid>
+                <!-- Equipped Items -->
+                <CollectionView ItemsSource="{Binding EquippedItems}" Margin="0,20,0,10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="1.5*, 3*, Auto" ColumnSpacing="10">
+                                <Label Grid.Column="0"
+                                       Text="{Binding ItemName}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Start"
+                                       FontSize="16"
+                                       LineBreakMode="WordWrap" />
+
+                                <Label Grid.Column="1"
+                                       Text="{Binding ItemDescription}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Start"
+                                       FontSize="16"
+                                       LineBreakMode="WordWrap" />
+
+                                <Button Grid.Column="2"
+                                        Text="{Binding ItemUseButtonText}"
+                                        Command="{Binding ItemUseCommand}"
+                                        VerticalOptions="Center"
+                                        FontSize="14"
+                                        Padding="10,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Grid ColumnDefinitions="1.5*, 3*, Auto" ColumnSpacing="10" Margin="0,20,0,10">
+                    <Label Grid.Column="0"
+                           Text="Unequipped Equipment"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           FontSize="16"
+                           LineBreakMode="WordWrap" />
+
+                    <Label Grid.Column="1"
+                           Text="Equipment Description"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           FontSize="16"
+                           LineBreakMode="WordWrap" />
+
+                    <Label Grid.Column="2"
+                           Text="Equip button"
+                           VerticalOptions="Center"
+                           FontSize="14"
+                           Padding="10,0" />
+                    </Grid>
+                    <!-- Equipment Slots -->
+                    <CollectionView ItemsSource="{Binding EquipmentSlots}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="1.5*, 3*, Auto" ColumnSpacing="10">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding ItemName}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="16"
+                                           LineBreakMode="WordWrap" />
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding ItemDescription}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="16"
+                                           LineBreakMode="WordWrap" />
+
+                                    <Button Grid.Column="2"
+                                            Text="{Binding ItemUseButtonText}"
+                                            Command="{Binding ItemUseCommand}"
+                                            VerticalOptions="Center"
+                                            FontSize="14"
+                                            Padding="10,0" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button
+                        Text="Return to main menu"
+                        Clicked="ReturnToMainMenuClicked"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        Padding="10" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

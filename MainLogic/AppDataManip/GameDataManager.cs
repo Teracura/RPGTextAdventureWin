@@ -16,8 +16,8 @@ public class GameDataManager(AppDataDbContext dbContext, ObjectMapper objectMapp
         await EnsureDatabaseCreatedAsync();
         var heroBase = objectMapper.ConvertHeroStats(GameStateInstance.HeroState.Hero, saveSlot);
         var gameStateBase = objectMapper.ConvertGameStateParameters(saveSlot);
-        var ownedItemsBase = objectMapper.ConvertDictionaryStats(saveSlot); //bug is here
-
+        var ownedItemsBase = objectMapper.ConvertDictionaryStats(saveSlot);
+        
         var existingHero = await dbContext.Heroes.FindAsync(saveSlot);
         var existingGameState = await dbContext.GameStateParameters.FindAsync(saveSlot);
         var existingOwnedItems = await dbContext.OwnedItems.FindAsync(saveSlot);
@@ -63,6 +63,7 @@ public class GameDataManager(AppDataDbContext dbContext, ObjectMapper objectMapp
                 Name = item.Name,
                 Description = item.Description,
                 Price = item.Price,
+                EquipmentCategory = item.EquipmentCategory,
                 SaveSlot = saveSlot
             });
             dbContext.ShopItems.AddRange(shopItemsToSave);

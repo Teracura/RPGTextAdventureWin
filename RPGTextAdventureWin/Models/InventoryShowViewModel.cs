@@ -3,15 +3,33 @@ using System.Runtime.CompilerServices;
 
 namespace RPGTextAdventureWin.Models;
 
-public class InventoryShowViewModel(
-    string itemName,
-    int itemCount,
-    string itemDescription,
-    string itemUseButtonText = "If you are seeing this then something went horribly wrong",
-    Command? itemUseCommand = null)
-    : INotifyPropertyChanged
+public class InventoryShowViewModel : INotifyPropertyChanged
 {
-    private string _itemName = itemName;
+    //constructors
+    public InventoryShowViewModel(string itemName,
+        int itemCount,
+        string itemDescription,
+        string itemUseButtonText = "If you are seeing this then something went horribly wrong",
+        Command? itemUseCommand = null)
+    {
+        _itemName = itemName;
+        _itemCount = itemCount;
+        _itemDescription = itemDescription;
+        _itemUseButtonText = itemUseButtonText;
+        _itemUseCommand = itemUseCommand;
+    }
+
+    public InventoryShowViewModel(string itemName, string itemDescription, string itemUseButtonText,
+        Command? itemUseCommand)
+    {
+        _itemName = itemName;
+        _itemDescription = itemDescription;
+        _itemUseButtonText = itemUseButtonText;
+        _itemUseCommand = itemUseCommand;
+        _itemCount = 0; //in this case the count is not needed so it can be any value
+    }
+    
+    private string _itemName;
 
     public string ItemName
     {
@@ -19,7 +37,7 @@ public class InventoryShowViewModel(
         set => SetField(ref _itemName, value);
     }
 
-    private int _itemCount = itemCount;
+    private int _itemCount;
 
     public int ItemCount
     {
@@ -27,7 +45,7 @@ public class InventoryShowViewModel(
         set => SetField(ref _itemCount, value);
     }
 
-    private string _itemDescription = itemDescription;
+    private string _itemDescription;
 
     public string ItemDescription
     {
@@ -35,7 +53,7 @@ public class InventoryShowViewModel(
         set => SetField(ref _itemDescription, value);
     }
 
-    private string _itemUseButtonText = itemUseButtonText;
+    private string _itemUseButtonText;
 
     public string ItemUseButtonText
     {
@@ -43,8 +61,10 @@ public class InventoryShowViewModel(
         set => SetField(ref _itemUseButtonText, value);
     }
 
-    private Command? _itemUseCommand = itemUseCommand;
-    
+    private Command? _itemUseCommand;
+
+
+
     public Command? ItemUseCommand
     {
         get => _itemUseCommand;
