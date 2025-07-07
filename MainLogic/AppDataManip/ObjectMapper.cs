@@ -1,4 +1,6 @@
-﻿using Entities.Heroes;
+﻿using System.Collections;
+using System.Diagnostics;
+using Entities.Heroes;
 using Entities.Items;
 using MainLogic.GlobalParameters;
 using MainLogic.GlobalParameters.BaseEntities;
@@ -7,19 +9,19 @@ namespace MainLogic.AppDataManip;
 
 public class ObjectMapper
 {
+    public readonly GameStateParameters Instance = GameStateParameters.Instance;
     public void ConvertDictionaryStats(OwnedItemsBase ownedItemsBase)
     {
-        Dictionary<ItemTypes, int> ownedItems = new();
+        var ownedItems = Instance.OwnedItemsList.Items;
         CopyDictionaryStats(ownedItemsBase, ownedItems);
-        GameStateParameters.Instance.OwnedItemsList.Items = ownedItems;
     }
 
-    public OwnedItemsBase ConvertDictionaryStats(Dictionary<ItemTypes, int> ownedItemsBase, int saveSlot)
+    public OwnedItemsBase ConvertDictionaryStats(int saveSlot)
     {
-        var ownedItems = new OwnedItemsBase();
-        CopyDictionaryStats(ownedItems, ownedItemsBase);
-        ownedItems.SaveSlot = saveSlot;
-        return ownedItems;
+        var ownedItemsBase = new OwnedItemsBase();
+        CopyDictionaryStats(Instance.OwnedItemsList.Items, ownedItemsBase);
+        ownedItemsBase.SaveSlot = saveSlot;
+        return ownedItemsBase;
     }
 
     public HeroBaseEntity ConvertHeroStats(IHero hero, int saveId)
@@ -187,6 +189,11 @@ public class ObjectMapper
                 dest.Mage_SpellBook = src.GetValueOrDefault(ItemTypes.Mage_SpellBook);
                 dest.Mage_OrbOfTheArchmage = src.GetValueOrDefault(ItemTypes.Mage_OrbOfTheArchmage);
                 dest.Mage_CharmOfTheWind = src.GetValueOrDefault(ItemTypes.Mage_CharmOfTheWind);
+                Debug.WriteLine("=== Loaded items ===");
+                foreach (var item in src)
+                {
+                    Debug.WriteLine($"{item.Key}: {item.Value}");
+                }
                 break;
 
             case (OwnedItemsBase src, Dictionary<ItemTypes, int> dest):
@@ -228,10 +235,16 @@ public class ObjectMapper
                 dest[ItemTypes.Mage_SpellBook] = src.Mage_SpellBook;
                 dest[ItemTypes.Mage_OrbOfTheArchmage] = src.Mage_OrbOfTheArchmage;
                 dest[ItemTypes.Mage_CharmOfTheWind] = src.Mage_CharmOfTheWind;
+                Debug.WriteLine("=== Loaded items ===");
+                foreach (var item in dest)
+                {
+                    Debug.WriteLine($"{item.Key}: {item.Value}");
+                }
                 break;
 
             default:
                 throw new InvalidOperationException("Unsupported mapping types.");
         }
+
     }
 }

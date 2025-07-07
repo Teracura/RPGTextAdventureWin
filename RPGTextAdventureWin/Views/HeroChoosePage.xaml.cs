@@ -10,7 +10,6 @@ public partial class HeroChoosePage : ContentPage
 
     private async void OnStartNewSaveClick(object? sender, EventArgs e)
     {
-        //TODO: start a new save file
         await Shell.Current.GoToAsync(nameof(NewGameHeroTypeSelectPage));
     }
 

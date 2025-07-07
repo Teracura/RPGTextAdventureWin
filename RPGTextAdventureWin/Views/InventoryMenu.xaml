@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RPGTextAdventureWin.Views.InventoryMenu">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Inventory"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+            
+            <CollectionView ItemsSource="{Binding InventorySlots}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="20*,5*,60*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding ItemName}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding ItemCount}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding ItemDescription}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Button
+                Text="Return to main menu"
+                Clicked="ReturnToMainMenuClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                FontSize="16"
+                LineBreakMode="WordWrap" />
+            
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

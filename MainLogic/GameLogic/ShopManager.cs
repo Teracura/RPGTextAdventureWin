@@ -1,4 +1,5 @@
-﻿using Entities.Items;
+﻿using System.Diagnostics;
+using Entities.Items;
 using MainLogic.GlobalParameters;
 
 namespace MainLogic.GameLogic;
@@ -31,6 +32,10 @@ public static class ShopManager
 
         Instance.HeroState.Hero.Money -= item.Price;
         Instance.OwnedItemsList.Items[item.Type]++;
+        foreach (var pair in GameStateParameters.Instance.OwnedItemsList.Items)
+        {
+            Debug.WriteLine($"{pair.Key}: {pair.Value}");
+        }
         ShopItems.Remove(item);
 
         return true;

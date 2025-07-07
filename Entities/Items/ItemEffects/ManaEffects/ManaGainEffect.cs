@@ -7,7 +7,7 @@ public class ManaGainEffect(int amount) : IItemEffect
     public bool Apply(IHero hero)
     {
         hero.Mp += amount;
-        if (hero.Mp > hero.CalculateMaxHp()) hero.Mp = hero.CalculateMaxHp();
+        if (hero.Mp > hero.CalculateMaxMp()) hero.Mp = hero.CalculateMaxMp();
         return true;
     }
 

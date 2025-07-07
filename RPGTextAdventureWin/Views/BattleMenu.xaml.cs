@@ -9,6 +9,7 @@ namespace RPGTextAdventureWin.Views;
 public partial class BattleMenu : ContentPage
 {
     public ObservableCollection<StatsShowViewModel> StatsSlots { get; set; }
+
     public BattleMenu()
     {
         InitializeComponent();
@@ -101,9 +102,9 @@ public partial class BattleMenu : ContentPage
         }
     }
 
-    private void UseItemButtonClicked(object? sender, EventArgs e)
+    private async void UseItemButtonClicked(object? sender, EventArgs e)
     {
-        //TODO: Use item then enemy attacks
+        await Shell.Current.GoToAsync(nameof(BattleInventoryMenu));
     }
 
     private async void RunAwayButtonClicked(object? sender, EventArgs e)

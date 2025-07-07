@@ -6,7 +6,7 @@ public class FullManaGainEffect : IItemEffect
 {
     public bool Apply(IHero hero)
     {
-        hero.Mp = hero.CalculateMaxHp();
+        hero.Mp = hero.CalculateMaxMp();
         return true;
     }
 

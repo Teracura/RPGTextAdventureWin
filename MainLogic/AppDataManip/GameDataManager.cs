@@ -1,7 +1,9 @@
-﻿using Entities.Heroes;
+﻿using System.Diagnostics;
+using Entities.Heroes;
 using Entities.Items;
 using MainLogic.GameLogic;
 using MainLogic.GlobalParameters;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainLogic.AppDataManip;
 
@@ -12,10 +14,9 @@ public class GameDataManager(AppDataDbContext dbContext, ObjectMapper objectMapp
     public async Task<bool> SaveGameIntoFileSlot(int saveSlot)
     {
         await EnsureDatabaseCreatedAsync();
-
         var heroBase = objectMapper.ConvertHeroStats(GameStateInstance.HeroState.Hero, saveSlot);
         var gameStateBase = objectMapper.ConvertGameStateParameters(saveSlot);
-        var ownedItemsBase = objectMapper.ConvertDictionaryStats(GameStateInstance.OwnedItemsList.Items, saveSlot);
+        var ownedItemsBase = objectMapper.ConvertDictionaryStats(saveSlot); //bug is here
 
         var existingHero = await dbContext.Heroes.FindAsync(saveSlot);
         var existingGameState = await dbContext.GameStateParameters.FindAsync(saveSlot);
@@ -74,7 +75,9 @@ public class GameDataManager(AppDataDbContext dbContext, ObjectMapper objectMapp
         await EnsureDatabaseCreatedAsync();
         var heroBase = await dbContext.Heroes.FindAsync(saveSlot);
         var gameStateBase = await dbContext.GameStateParameters.FindAsync(saveSlot);
-        var ownedItemsBase = await dbContext.OwnedItems.FindAsync(saveSlot);
+        var ownedItemsBase = await dbContext.OwnedItems
+            .Where(x => x.SaveSlot == saveSlot)
+            .FirstOrDefaultAsync();
         LoadShopListing(saveSlot);
 
         if (heroBase == null || gameStateBase == null || ownedItemsBase == null) return false;

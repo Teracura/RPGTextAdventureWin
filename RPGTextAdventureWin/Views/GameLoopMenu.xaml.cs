@@ -39,7 +39,7 @@ public partial class GameLoopMenu : ContentPage
         await Shell.Current.GoToAsync(nameof(ShowHeroStatsPage));
     }
 
-    private async void RestoreStatsClicked(object? sender, EventArgs e)
+    private void RestoreStatsClicked(object? sender, EventArgs e)
     {
         GameManager.RestoreStats();
         ResultStatus.Text = "Stats Restored!";
@@ -55,8 +55,9 @@ public partial class GameLoopMenu : ContentPage
     {
     }
 
-    private void ShowInventoryClicked(object? sender, EventArgs e)
+    private async void ShowInventoryClicked(object? sender, EventArgs e)
     {
+        await Shell.Current.GoToAsync(nameof(InventoryMenu));
     }
 
     private async void SaveGameClicked(object? sender, EventArgs e)
