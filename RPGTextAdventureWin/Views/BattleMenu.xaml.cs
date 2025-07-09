@@ -9,6 +9,12 @@ namespace RPGTextAdventureWin.Views;
 public partial class BattleMenu : ContentPage
 {
     public ObservableCollection<StatsShowViewModel> StatsSlots { get; set; }
+    public ObservableCollection<ThreeTextLabelsViewModel> InformationBoxes { get; set; }
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
+    private bool _heroMessageReceived;
+    private bool _enemyMessageReceived;
+    private bool _gameMessageReceived;
+
 
     public BattleMenu()
     {
@@ -18,16 +24,23 @@ public partial class BattleMenu : ContentPage
             new StatsShowViewModel("Health Points:", "", "Enemy Health:", ""),
             new StatsShowViewModel("Mana Points:", "", "Enemy Scale Factor:", ""),
         ];
+        InformationBoxes = [];
+        
+        for (var i = 0; i < 5; i++)
+        {
+            InformationBoxes.Add(new ThreeTextLabelsViewModel());
+        }
+
         SubscribeToGameEvents();
         GameManager.InitiateFight();
-        UpdateUI();
+        UpdateUi();
         BindingContext = this;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        UpdateUI(); // Call a method to refresh all UI elements
+        UpdateUi(); // Call a method to refresh all UI elements
     }
 
     private void SubscribeToGameEvents()
@@ -37,36 +50,94 @@ public partial class BattleMenu : ContentPage
         EventManager.EnemySideNotification += OnEnemyCombatMessageHandler;
     }
 
-    private void OnGameEndedHandler(string message)
+    private void OnHeroCombatMessageHandler(string message)
     {
-        MainThread.BeginInvokeOnMainThread((() =>
-            HeroInformationBox.Text = message));
-        ShopManager.GetRandomShopItems(GameStateParameters.Instance.HeroState.Hero.Type!, 5);
-        UpdateUI();
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            AddToInformationBox(message, MessageSides.Left);
+            _heroMessageReceived = true;
+            TryUpdateUiOncePerAction();
+        });
     }
 
     private void OnEnemyCombatMessageHandler(string message)
     {
-        MainThread.BeginInvokeOnMainThread((() =>
-            EnemyInformationBox.Text = message));
-        UpdateUI();
-    }
-
-    private void OnHeroCombatMessageHandler(string message)
-    {
-        MainThread.BeginInvokeOnMainThread((() =>
-            HeroInformationBox.Text = message));
-        UpdateUI();
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            AddToInformationBox(message, MessageSides.Right);
+            _enemyMessageReceived = true;
+            TryUpdateUiOncePerAction();
+        });
     }
 
     private void OnGameMessageHandler(string message)
     {
-        MainThread.BeginInvokeOnMainThread((() =>
-            BattleStatus.Text = message));
-        UpdateUI();
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            AddToInformationBox(message, MessageSides.Center);
+            _gameMessageReceived = true;
+            TryUpdateUiOncePerAction();
+        });
     }
 
-    private void UpdateUI()
+
+    private void AddToInformationBox(string message, MessageSides side)
+    {
+        // Try to find the first label where the relevant side is empty
+        foreach (var label in InformationBoxes)
+        {
+            switch (side)
+            {
+                case MessageSides.Left:
+                    if (string.IsNullOrWhiteSpace(label.LeftSideText))
+                    {
+                        label.LeftSideText = message;
+                        return;
+                    }
+
+                    break;
+                case MessageSides.Right:
+                    if (string.IsNullOrWhiteSpace(label.RightSideText))
+                    {
+                        label.RightSideText = message;
+                        return;
+                    }
+
+                    break;
+                case MessageSides.Center:
+                    if (string.IsNullOrWhiteSpace(label.MiddleText))
+                    {
+                        label.MiddleText = message;
+                        return;
+                    }
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(side), side, null);
+            }
+        }
+
+        // If no empty slot was found, remove the oldest and add a new one
+        InformationBoxes.RemoveAt(0);
+        var newLabel = new ThreeTextLabelsViewModel();
+        switch (side)
+        {
+            case MessageSides.Left:
+                newLabel.LeftSideText = message;
+                break;
+            case MessageSides.Right:
+                newLabel.RightSideText = message;
+                break;
+            case MessageSides.Center:
+                newLabel.MiddleText = message;
+                break;
+        }
+
+        InformationBoxes.Add(newLabel);
+    }
+
+
+    private void UpdateUi()
     {
         // Update Enemy Counter
         int totalEnemies =
@@ -84,19 +155,9 @@ public partial class BattleMenu : ContentPage
 
         var currentEnemy = CombatManager.CurrentEnemy;
         // OR: Make a public static method in GameManager: GameManager.GetCurrentEnemy()
-        if (currentEnemy != null)
-        {
-            EnemyName.Text = currentEnemy.Type;
-            StatsSlots[0].StatValue2 = $"{currentEnemy.Hp} / {currentEnemy.MaxHp}";
-            StatsSlots[1].StatValue2 = $"{GameStateParameters.Instance.MetaProgressionState.ScaleFactor}";
-        }
-        else
-        {
-            // Handle case where no enemy is present (e.g., victory, between enemies)
-            EnemyName.Text = "No Enemy";
-            StatsSlots[0].StatValue2 = "N/A";
-            StatsSlots[1].StatValue2 = "N/A";
-        }
+        EnemyName.Text = currentEnemy.Type;
+        StatsSlots[0].StatValue2 = $"{currentEnemy.Hp} / {currentEnemy.MaxHp}";
+        StatsSlots[1].StatValue2 = $"{GameStateParameters.Instance.MetaProgressionState.ScaleFactor}";
     }
 
     private async void UseItemButtonClicked(object? sender, EventArgs e)
@@ -123,6 +184,18 @@ public partial class BattleMenu : ContentPage
             GameManager.Attack();
         }
     }
+
+    private void TryUpdateUiOncePerAction()
+    {
+        if ((!_heroMessageReceived || !_enemyMessageReceived) && !_gameMessageReceived) return;
+        UpdateUi();
+
+        // Reset for next combat action
+        _heroMessageReceived = false;
+        _enemyMessageReceived = false;
+        _gameMessageReceived = false;
+    }
+
 
     private void SpecialAbilityButtonClicked(object? sender, EventArgs e)
     {

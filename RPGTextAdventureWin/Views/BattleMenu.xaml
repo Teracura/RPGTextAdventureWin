@@ -105,32 +105,39 @@
                     LineBreakMode="WordWrap"
                     HorizontalOptions="Fill" />
             </Grid>
+            
             <!--BattleInformationBoxes-->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Label
-                    Grid.Column="0"
-                    Text="PlaceHolderTextForInformationBoxOfHero"
-                    x:Name="HeroInformationBox"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-                <Label
-                    Grid.Column="1"
-                    Text="PlaceHolderTextForInformationBoxOfEnemy"
-                    x:Name="EnemyInformationBox"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-            <Label
-                x:Name="BattleStatus"
-                Text="Battle Initiated!"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                FontSize="20"
-                LineBreakMode="WordWrap" />
+            <CollectionView ItemsSource="{Binding InformationBoxes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding LeftSideText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding MiddleText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding RightSideText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+           
 
         </VerticalStackLayout>
     </ContentPage.Content>

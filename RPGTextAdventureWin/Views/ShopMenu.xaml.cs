@@ -53,12 +53,6 @@ public partial class ShopMenu : ContentPage
 
     private async Task PurchaseButtonClicked(ShopSlotViewModel slot)
     {
-        if (slot.Purchased)
-        {
-            ShopInformationBox.Text = "Invalid purchase: Already purchased";
-            return;
-        }
-
         var purchasePassed = ShopManager.BuyItem(slot.Item);
         if (!purchasePassed)
         {
@@ -66,9 +60,7 @@ public partial class ShopMenu : ContentPage
         }
         else
         {
-            slot.ButtonText = "Bought";
-            slot.Purchased = true;
-
+            ShopSlots.Remove(slot);
             await MainThread.InvokeOnMainThreadAsync(() =>
                 HeroMoney.Text = Instance.HeroState.Hero.Money.ToString()
             );

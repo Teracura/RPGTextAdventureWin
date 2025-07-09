@@ -58,6 +58,7 @@ public static class GameManager
         if (Instance.HeroState.IsDefeated)
         {
             Instance.MetaProgressionState.GlobalTimesDefeated++;
+            ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
             return;
         }
 
@@ -72,10 +73,11 @@ public static class GameManager
         Instance.MetaProgressionState.GlobalEnemiesKilled++;
         Instance.MetaProgressionState.ScaleFactor += 0.001m;
         GainHeroExp();
-        if (VictoryIfAllEnemiesDefeated())
+        if (HasClearedDungeon())
         {
             Instance.DungeonState.DungeonCleared = true;
             Instance.MetaProgressionState.GlobalDungeonsCleared++;
+            ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
             return;
         }
 
@@ -96,7 +98,7 @@ public static class GameManager
         EventManager.SendHeroLevelUpMessage(Instance.HeroState.Hero.Level);
     }
 
-    private static bool VictoryIfAllEnemiesDefeated()
+    private static bool HasClearedDungeon()
     {
         return Enemies.Count == 0 &&
                Instance.DungeonState.NumberOfEnemiesDefeated >= Instance.DungeonState.NumberOfEnemiesPerDungeon;

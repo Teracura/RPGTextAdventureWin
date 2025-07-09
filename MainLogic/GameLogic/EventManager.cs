@@ -34,11 +34,11 @@ public static class EventManager
     
     public static void SendHeroGainedXpMessage(decimal xp)
     {
-        HeroSideNotification?.Invoke($"You gained {xp} xp!");
+        GameMessageNotification?.Invoke($"You gained {xp} xp!");
     }
     
     public static void SendHeroLevelUpMessage(int level)
     {
-        HeroSideNotification?.Invoke($"You leveled up to level {level}!");
+        GameMessageNotification?.Invoke($"You leveled up to level {level}!");
     }
 }
