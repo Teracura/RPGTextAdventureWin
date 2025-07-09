@@ -32,12 +32,9 @@ public partial class BattleMenu : ContentPage
 
     private void SubscribeToGameEvents()
     {
-        GameManager.OnGameMessage += OnGameMessageHandler;
-        GameManager.OnHeroCombatMessage += OnHeroCombatMessageHandler;
-        GameManager.OnEnemyCombatMessage += OnEnemyCombatMessageHandler;
-        GameManager.OnGameEnded += OnGameEndedHandler;
-        CombatManager.OnHeroAttackMessage += OnHeroCombatMessageHandler;
-        CombatManager.OnEnemyAttackMessage += OnEnemyCombatMessageHandler;
+        EventManager.GameMessageNotification += OnGameMessageHandler;
+        EventManager.HeroSideNotification += OnHeroCombatMessageHandler;
+        EventManager.EnemySideNotification += OnEnemyCombatMessageHandler;
     }
 
     private void OnGameEndedHandler(string message)

@@ -128,7 +128,6 @@ public class ObjectMapper
                 dest.MaxDefense = src.MaxDefense;
                 dest.Xp = src.Xp;
                 dest.Level = src.Level;
-                dest.TurnCounter = src.TurnCounter;
                 dest.Money = src.Money;
                 dest.DefenseIncreasePerLevel = src.DefenseIncreasePerLevel;
                 dest.DmgPerLevel = src.DmgPerLevel;
@@ -144,7 +143,6 @@ public class ObjectMapper
                 dest.MaxDefense = src.MaxDefense;
                 dest.Xp = src.Xp;
                 dest.Level = src.Level;
-                dest.TurnCounter = src.TurnCounter;
                 dest.Money = src.Money;
                 dest.DefenseIncreasePerLevel = src.DefenseIncreasePerLevel;
                 dest.DmgPerLevel = src.DmgPerLevel;

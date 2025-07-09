@@ -14,7 +14,6 @@ public abstract class HeroBaseEntity
     public decimal MaxDefense { get; set; }
     public decimal Xp { get; set; }
     public int Level { get; set; }
-    public int TurnCounter { get; set; }
     public int Money { get; set; }
 
     public decimal DefenseIncreasePerLevel { get; set; }

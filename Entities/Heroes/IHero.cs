@@ -17,24 +17,15 @@ public interface IHero
     decimal MaxDefense { get; set; }
     decimal Xp { get; set; }
     int Level { get; set; }
-    int TurnCounter { get; set; }
     int Money { get; set; }
     
-    Dictionary<EquipmentSlot, Item?> Equipment { get; }
     decimal DefenseIncreasePerLevel { get; set; }
     decimal DmgPerLevel { get; set; }
     decimal HpPerLevel { get; set; }
 
-    decimal CalculateActualDamage();
     void RestoreHealth();
     void RestoreMp();
-    void Rest();
-    bool Attack(IEnemy? enemy);
-    bool SpecialAbility();
-    bool CheckTimer();
-    void CancelSpecialAbility();
+    bool Attack(IEnemy enemy);
     int CalculateMaxHp();
     int CalculateMaxMp();
-    bool EquipItem(Item item, EquipmentSlot slot);
-    void UnequipItem(EquipmentSlot slot);
 }
