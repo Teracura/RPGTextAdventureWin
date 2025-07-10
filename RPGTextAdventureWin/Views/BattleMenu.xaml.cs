@@ -32,7 +32,7 @@ public partial class BattleMenu : ContentPage
         }
 
         SubscribeToGameEvents();
-        GameManager.InitiateFight();
+        Instance.GameManager.InitiateFight();
         UpdateUi();
         BindingContext = this;
     }
@@ -181,7 +181,7 @@ public partial class BattleMenu : ContentPage
         }
         else
         {
-            GameManager.Attack();
+            Instance.GameManager.Attack();
         }
     }
 

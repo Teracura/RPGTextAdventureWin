@@ -1,4 +1,4 @@
-﻿using MainLogic;
+﻿using Entities.Enemies;
 using Entities.Heroes;
 using MainLogic.Factories;
 using MainLogic.GameLogic;
@@ -49,7 +49,7 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
         Instance.MetaProgressionState.ScaleFactor = 1m;
         Instance.DungeonState.NumberOfEnemiesPerDungeon = 5; //default values, don't change unless related to game balance
         ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
-        
-        GameManager.Start();
+        var gameManager = new GameManager(new EnemyCreator(), new CombatManager(), new Queue<IEnemy>());
+        Instance.GameManager = gameManager;
     }
 }

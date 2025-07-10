@@ -13,18 +13,18 @@ public class Duck : IEnemy
     public int MaxLevel { get; set; }
     public string Type { get; set; }
 
-    public Duck(decimal ScaleFactor)
+    public Duck(decimal scaleFactor)
     {
         Type = "Duck";
-        Hp = 100_000_000 * ScaleFactor;
+        Hp = 100_000_000 * scaleFactor;
         MaxHp = (int)Hp;
-        Dmg = 1_000_000 * ScaleFactor;
+        Dmg = 1_000_000 * scaleFactor;
         MinLevel = 100;
         MaxLevel = int.MaxValue;
         BaseExp = 10_000;
     }
 
-    public bool Attack(IHero hero, decimal ScaleFactor)
+    public bool Attack(IHero hero, decimal scaleFactor)
     {
         var damage = Dmg - (Dmg * hero.DefencePercentage);
         hero.Hp -= damage;

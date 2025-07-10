@@ -8,7 +8,7 @@ namespace MainLogic.Factories;
 
 public static class ItemEffectFactory
 {
-    public static IItemEffect? Create(ItemTypes type)
+    public static IItemEffect Create(ItemTypes type)
     {
         return type switch
         {
@@ -23,7 +23,7 @@ public static class ItemEffectFactory
             ItemTypes.Common_KaitoKey => new KaitoKeyEffect(),
 
             // Default case: non-usable items like weapons/armors
-            _ => null
+            _ => throw new Exception("Listed item effect is not in factory")
         };
     }
 }

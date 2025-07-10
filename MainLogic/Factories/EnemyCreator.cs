@@ -4,7 +4,7 @@ using MainLogic.GlobalParameters;
 
 namespace MainLogic.Factories;
 
-internal class EnemyCreator
+public class EnemyCreator
 {
     private readonly Dictionary<EnemyType, Func<IEnemy>> _enemyFactories;
     private readonly Random _random = new();

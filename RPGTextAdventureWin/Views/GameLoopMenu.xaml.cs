@@ -11,18 +11,19 @@ namespace RPGTextAdventureWin.Views;
 
 public partial class GameLoopMenu : ContentPage
 {
+    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
     public GameLoopMenu()
     {
         InitializeComponent();
-        if (GameStateParameters.Instance.DungeonState.DungeonCleared)
+        if (Instance.DungeonState.DungeonCleared)
         {
-            GameStateParameters.Instance.DungeonState.DungeonCleared = false;
+            Instance.DungeonState.DungeonCleared = false;
             ResultStatus.Text = "Another glorious victory! You may rest now hero.";
             ResultStatus.IsVisible = true;
         }
-        else if (GameStateParameters.Instance.HeroState.IsDefeated)
+        else if (Instance.HeroState.IsDefeated)
         {
-            GameStateParameters.Instance.HeroState.IsDefeated = false;
+            Instance.HeroState.IsDefeated = false;
             ResultStatus.Text =
                 "Hero? thank god you are awake! you were dragged by us when we saw you fallen in battle";
             ResultStatus.IsVisible = true;
@@ -41,7 +42,7 @@ public partial class GameLoopMenu : ContentPage
 
     private void RestoreStatsClicked(object? sender, EventArgs e)
     {
-        GameManager.RestoreStats();
+        Instance.GameManager.RestoreStats();
         ResultStatus.Text = "Stats Restored!";
         ResultStatus.IsVisible = true;
     }
@@ -63,7 +64,7 @@ public partial class GameLoopMenu : ContentPage
 
     private async void SaveGameClicked(object? sender, EventArgs e)
     {
-        GameStateParameters.Instance.Saving = true;
+        Instance.Saving = true;
         await Shell.Current.GoToAsync(nameof(ChooseSaveFileTypeSelectPage));
     }
 }

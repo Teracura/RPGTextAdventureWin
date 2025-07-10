@@ -5,38 +5,21 @@ using MainLogic.GlobalParameters;
 
 namespace MainLogic.GameLogic;
 
-public static class GameManager
+public class GameManager(
+    EnemyCreator enemyCreator,
+    CombatManager combatManager,
+    Queue<IEnemy> enemies)
 {
-    //This will never be null as Start() is always invoked upon starting the app
-#pragma warning disable CS8618
-    private static EnemyCreator EnemyCreator { get; set; }
-    private static CombatManager CombatManager { get; set; }
-    private static Queue<IEnemy> Enemies { get; set; }
-#pragma warning restore CS8618
     private static readonly GameStateParameters Instance = GameStateParameters.Instance;
 
-
-    public static void Start()
-    {
-        Enemies = new();
-        EnemyCreator = new();
-        CombatManager = new();
-    }
-
-    public static void InitiateFight()
+    public void InitiateFight()
     {
         Instance.DungeonState.NumberOfEnemiesDefeated = 0;
+        GenerateDungeonEnemies();
 
-        Enemies.Clear();
-        for (int i = 1; i <= Instance.DungeonState.NumberOfEnemiesPerDungeon; i++)
+        if (enemies.Count > 0)
         {
-            var enemy = EnemyCreator.CreateNewEnemy(Instance.HeroState.Hero.Level);
-            Enemies.Enqueue(enemy);
-        }
-
-        if (Enemies.Count > 0)
-        {
-            CombatManager.CurrentEnemy = Enemies.Dequeue();
+            CombatManager.CurrentEnemy = enemies.Dequeue();
             EventManager.SendEnemyAppearMessage(CombatManager.CurrentEnemy);
         }
         else
@@ -45,16 +28,16 @@ public static class GameManager
         }
     }
 
-    public static void RestoreStats()
+    public void RestoreStats()
     {
         var hero = Instance.HeroState.Hero;
         hero.RestoreHealth();
         hero.RestoreMp();
     }
 
-    public static void Attack()
+    public void Attack()
     {
-        CombatManager.Attack();
+        combatManager.Attack();
         if (Instance.HeroState.IsDefeated)
         {
             Instance.MetaProgressionState.GlobalTimesDefeated++;
@@ -65,42 +48,50 @@ public static class GameManager
         ReplaceEnemyIfDefeated();
     }
 
-    private static void ReplaceEnemyIfDefeated()
+    private void ReplaceEnemyIfDefeated()
     {
         if (!Instance.DungeonState.EnemyDefeated) return;
-        Instance.DungeonState.EnemyDefeated = false;
-        Instance.DungeonState.NumberOfEnemiesDefeated++;
-        Instance.MetaProgressionState.GlobalEnemiesKilled++;
-        Instance.MetaProgressionState.ScaleFactor += 0.001m;
+        combatManager.ApplyEnemyDefeatResults();
         GainHeroExp();
         if (HasClearedDungeon())
         {
-            Instance.DungeonState.DungeonCleared = true;
-            Instance.MetaProgressionState.GlobalDungeonsCleared++;
+            combatManager.ApplyDungeonClearResults();
             ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
             return;
         }
 
-        if (Enemies.Count == 0) return;
-        CombatManager.CurrentEnemy = Enemies.Dequeue();
+        if (enemies.Count == 0) return;
+        CombatManager.CurrentEnemy = enemies.Dequeue();
         EventManager.SendEnemyAppearMessage(CombatManager.CurrentEnemy);
     }
 
-    private static void GainHeroExp()
+    private void GainHeroExp()
     {
-        var currentXp = Instance.HeroState.Hero.Xp;
-        var leveledUp = HeroUtils.GainWinningRewards(Instance.HeroState.Hero,
+        var hero = Instance.HeroState.Hero;
+        var currentXp = hero.Xp;
+        var leveledUp = HeroUtils.GainWinningRewards(hero,
             CombatManager.CurrentEnemy,
             Instance.MetaProgressionState.ScaleFactor);
-        HeroUtils.LevelUp(Instance.HeroState.Hero);
-        EventManager.SendHeroGainedXpMessage(Instance.HeroState.Hero.Xp - currentXp);
+        
+        HeroUtils.LevelUp(hero);
+        EventManager.SendHeroGainedXpMessage(hero.Xp - currentXp);
         if (!leveledUp) return;
-        EventManager.SendHeroLevelUpMessage(Instance.HeroState.Hero.Level);
+        EventManager.SendHeroLevelUpMessage(hero.Level);
     }
 
-    private static bool HasClearedDungeon()
+    private bool HasClearedDungeon()
     {
-        return Enemies.Count == 0 &&
+        return enemies.Count == 0 &&
                Instance.DungeonState.NumberOfEnemiesDefeated >= Instance.DungeonState.NumberOfEnemiesPerDungeon;
+    }
+
+    private void GenerateDungeonEnemies()
+    {
+        enemies.Clear();
+        for (var i = 1; i <= Instance.DungeonState.NumberOfEnemiesPerDungeon; i++)
+        {
+            var enemy = enemyCreator.CreateNewEnemy(Instance.HeroState.Hero.Level);
+            enemies.Enqueue(enemy);
+        }
     }
 }

@@ -32,4 +32,18 @@ public class CombatManager()
         if (hero.Hp > 0) return;
         GameStateParameters.Instance.HeroState.IsDefeated = true;
     }
+    
+    public void ApplyEnemyDefeatResults()
+    {
+        Instance.DungeonState.EnemyDefeated = false;
+        Instance.DungeonState.NumberOfEnemiesDefeated++;
+        Instance.MetaProgressionState.GlobalEnemiesKilled++;
+        Instance.MetaProgressionState.ScaleFactor += 0.001m;
+    }
+
+    public void ApplyDungeonClearResults()
+    {
+        Instance.DungeonState.DungeonCleared = true;
+        Instance.MetaProgressionState.GlobalDungeonsCleared++;
+    }
 }

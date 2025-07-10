@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using Entities.Enemies;
 using Entities.Heroes;
 using MainLogic.AppDataManip;
+using MainLogic.Factories;
 using MainLogic.GameLogic;
 using MainLogic.GlobalParameters;
 using MainLogic.GlobalParameters.BaseEntities;
@@ -50,7 +52,7 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
     {
         var context = new AppDataDbContext();
         var dataManager = new GameDataManager(context, Mapper);
-        GameManager.Start();
+        var gameManager = new GameManager(new EnemyCreator(), new CombatManager(), new Queue<IEnemy>());
 
 
         if (GameStateParameters.Instance.Saving)
