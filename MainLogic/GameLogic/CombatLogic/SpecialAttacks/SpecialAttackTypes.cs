@@ -1,6 +1,6 @@
 ﻿namespace MainLogic.GameLogic.CombatLogic.SpecialAttacks;
 
-public enum SpecialAttacks
+public enum SpecialAttackTypes
 {
     // Warrior
     StrikeOfTheAvenger, //high dmg, low mana cost, shield penetration

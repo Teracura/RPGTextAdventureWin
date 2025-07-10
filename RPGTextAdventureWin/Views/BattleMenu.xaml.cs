@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Entities.Heroes;
 using MainLogic.GameLogic;
+using MainLogic.GameLogic.CombatLogic;
 using MainLogic.GlobalParameters;
 using RPGTextAdventureWin.Models;
 

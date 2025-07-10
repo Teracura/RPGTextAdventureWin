@@ -4,6 +4,7 @@ using Entities.Heroes;
 using MainLogic.AppDataManip;
 using MainLogic.Factories;
 using MainLogic.GameLogic;
+using MainLogic.GameLogic.CombatLogic;
 using MainLogic.GlobalParameters;
 using MainLogic.GlobalParameters.BaseEntities;
 using Microsoft.EntityFrameworkCore;

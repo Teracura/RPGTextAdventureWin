@@ -10,7 +10,9 @@ public class StrikeOfTheAvenger : ISpecialAttack
     public HeroClasses HeroClass { get; } = HeroClasses.Warrior;
     public void Apply(IHero hero)
     {
-        throw new NotImplementedException();
+        var enemy = CombatManager.CurrentEnemy;
+        enemy.Hp -= hero.Dmg *
+                    (Math.Max(1, 4 * (hero.CalculateMaxHp() - (hero.Hp + 1) / hero.CalculateMaxHp())));
     }
 
     public string GetDescription()

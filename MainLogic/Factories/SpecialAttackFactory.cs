@@ -8,24 +8,24 @@ namespace MainLogic.Factories;
 
 public static class SpecialAttackFactory
 {
-    public static ISpecialAttack Create(SpecialAttacks type)
+    public static ISpecialAttack Create(SpecialAttackTypes type)
     {
         return type switch
         {
             // Warrior
-            SpecialAttacks.StrikeOfTheAvenger => new StrikeOfTheAvenger(),
-            SpecialAttacks.AbsoluteGuard => new AbsoluteGuard(),
-            SpecialAttacks.UltimateRageStrike => new UltimateRageStrike(),
+            SpecialAttackTypes.StrikeOfTheAvenger => new StrikeOfTheAvenger(),
+            SpecialAttackTypes.AbsoluteGuard => new AbsoluteGuard(),
+            SpecialAttackTypes.UltimateRageStrike => new UltimateRageStrike(),
 
             // Mage
-            SpecialAttacks.SoulSwap => new SoulSwap(),
-            SpecialAttacks.SparkOfTheMightiestMage => new SparkOfTheMightiestMage(),
-            SpecialAttacks.SpiritLeech => new SpiritLeech(),
+            SpecialAttackTypes.SoulSwap => new SoulSwap(),
+            SpecialAttackTypes.SparkOfTheMightiestMage => new SparkOfTheMightiestMage(),
+            SpecialAttackTypes.SpiritLeech => new SpiritLeech(),
 
             // Archer
-            SpecialAttacks.TheFierceShot => new TheFierceShot(),
-            SpecialAttacks.ElvenCursedArrow => new ElvenCursedArrow(),
-            SpecialAttacks.FocusShot => new FocusShot(),
+            SpecialAttackTypes.TheFierceShot => new TheFierceShot(),
+            SpecialAttackTypes.ElvenCursedArrow => new ElvenCursedArrow(),
+            SpecialAttackTypes.FocusShot => new FocusShot(),
 
             _ => throw new Exception("Listed special attack is not in factory")
         };

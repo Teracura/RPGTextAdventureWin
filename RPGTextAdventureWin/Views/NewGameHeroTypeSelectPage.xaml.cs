@@ -2,6 +2,7 @@
 using Entities.Heroes;
 using MainLogic.Factories;
 using MainLogic.GameLogic;
+using MainLogic.GameLogic.CombatLogic;
 using MainLogic.GlobalParameters;
 
 namespace RPGTextAdventureWin.Views;

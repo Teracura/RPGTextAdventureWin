@@ -1,6 +1,7 @@
 ﻿using Entities.Enemies;
 using Entities.Heroes;
 using MainLogic.Factories;
+using MainLogic.GameLogic.CombatLogic;
 using MainLogic.GlobalParameters;
 
 namespace MainLogic.GameLogic;
