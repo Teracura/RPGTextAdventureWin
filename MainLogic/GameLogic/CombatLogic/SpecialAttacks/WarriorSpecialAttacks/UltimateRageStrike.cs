@@ -10,7 +10,7 @@ public class UltimateRageStrike : ISpecialAttack
     public HeroClasses HeroClass { get; } = HeroClasses.Warrior;
     public void Apply(IHero hero)
     {
-        throw new NotImplementedException();
+        CombatManager.CurrentEnemy.Hp -= hero.Dmg * 1.5m;
     }
 
     public string GetDescription()

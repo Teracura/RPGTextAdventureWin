@@ -55,17 +55,23 @@ public static class EventManager
                 GameMessageNotification?.Invoke("You used Strike of the Avenger!");
                 HeroSideNotification?.Invoke($"You attacked {enemy.Type} for " +
                                              $"{hero.Dmg *
-                                                (Math.Max(1, 4 * ((hero.CalculateMaxHp() - (hero.Hp + 1)) / hero.CalculateMaxHp())))}");
+                                                (Math.Max(1, 4 * ((hero.CalculateMaxHp() - (hero.Hp + 1)) / hero.CalculateMaxHp())))} damage!");
                 break;
             case SpecialAttackTypes.AbsoluteGuard:
+                GameMessageNotification?.Invoke("You used Absolute Guard!");
+                HeroSideNotification?.Invoke($"You attacked {enemy.Type} for {hero.Dmg * 1.5m} damage!");
                 break;
             case SpecialAttackTypes.UltimateRageStrike:
                 break;
 
             // Mage
             case SpecialAttackTypes.SoulSwap:
+                GameMessageNotification?.Invoke("You used Soul Swap!");
+                HeroSideNotification?.Invoke("You swapped your mana and HP!");
                 break;
             case SpecialAttackTypes.SparkOfTheMightiestMage:
+                GameMessageNotification?.Invoke("You used Spark of the Mightiest Mage!");
+                HeroSideNotification?.Invoke("Mana is now at 0");
                 break;
             case SpecialAttackTypes.SpiritLeech:
                 break;

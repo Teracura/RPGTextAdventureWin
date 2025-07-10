@@ -11,7 +11,8 @@ public class SparkOfTheMightiestMage : ISpecialAttack
     public HeroClasses HeroClass { get; } = HeroClasses.Mage;
     public void Apply(IHero hero)
     {
-        throw new NotImplementedException();
+        var attackBoost = hero.Mp * 0.05m;
+        hero.Mp = 0;
     }
 
     public string GetDescription()

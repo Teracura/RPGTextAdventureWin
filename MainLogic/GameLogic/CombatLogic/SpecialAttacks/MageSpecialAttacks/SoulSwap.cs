@@ -10,7 +10,10 @@ public class SoulSwap : ISpecialAttack
     public HeroClasses HeroClass { get; } = HeroClasses.Mage;
     public void Apply(IHero hero)
     {
-        throw new NotImplementedException();
+        var manaRatio = (hero.CalculateMaxMp() - hero.Mp / hero.CalculateMaxMp());
+        var hpRatio = (hero.CalculateMaxHp() - hero.Hp / hero.CalculateMaxHp());
+        hero.Hp = hero.CalculateMaxHp() * manaRatio;
+        hero.Mp = hero.CalculateMaxMp() * hpRatio;
     }
 
     public string GetDescription()
