@@ -1,5 +1,6 @@
 ﻿using Entities.Enemies;
 using Entities.Heroes;
+using Entities.Items;
 using MainLogic.Factories;
 using MainLogic.GameLogic;
 using MainLogic.GameLogic.CombatLogic;
@@ -10,7 +11,7 @@ namespace RPGTextAdventureWin.Views;
 public partial class NewGameHeroTypeSelectPage : ContentPage
 {
     private readonly HeroCreator _heroCreator = new();
-    private static readonly GameStateParameters Instance = GameStateParameters.Instance;
+    private static GameStateParameters Instance = GameStateParameters.Instance;
 
     public NewGameHeroTypeSelectPage()
     {
@@ -46,8 +47,15 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
 
     private void InitializeHero(IHero hero)
     {
+        Instance.OwnedItemsList.Items.Clear();
         Instance.HeroState.Hero = hero;
         Instance.MetaProgressionState.ScaleFactor = 1m;
+        Instance.MetaProgressionState.GlobalTimesDefeated = 0;
+        Instance.MetaProgressionState.GlobalEnemiesKilled = 0;
+        Instance.MetaProgressionState.GlobalDungeonsCleared = 0;
+        Instance.HeroState.EquippedAccessory = ItemTypes.Nothing;
+        Instance.HeroState.EquippedArmor = ItemTypes.Nothing;
+        Instance.HeroState.EquippedWeapon = ItemTypes.Nothing;
         Instance.DungeonState.NumberOfEnemiesPerDungeon =
             5; //default values, don't change unless related to game balance
         ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
