@@ -8,8 +8,6 @@ namespace MainLogic.AppDataManip;
 
 public class AppDataDbContext(string dbPath) : DbContext
 {
-    
-    private readonly string _dbPath = dbPath;
 
     public DbSet<GameStateParametersBaseEntity> GameStateParameters { get; set; }
     public DbSet<HeroBaseEntity> Heroes { get; set; }
@@ -19,9 +17,8 @@ public class AppDataDbContext(string dbPath) : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (optionsBuilder.IsConfigured) return;
-
-        optionsBuilder.UseSqlite($"Data Source={_dbPath}");
-        Debug.WriteLine("path: " + _dbPath);
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        Debug.WriteLine("path: " + dbPath);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

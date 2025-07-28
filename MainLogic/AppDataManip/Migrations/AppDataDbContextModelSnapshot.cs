@@ -103,7 +103,7 @@ namespace MainLogic.AppDataManip.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.ToTable("ShopItems");
+                    b.ToTable("ShopItems", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Items.OwnedItemsBase", b =>
@@ -215,7 +215,7 @@ namespace MainLogic.AppDataManip.Migrations
 
                     b.HasKey("SaveSlot");
 
-                    b.ToTable("OwnedItems");
+                    b.ToTable("OwnedItems", (string)null);
                 });
 
             modelBuilder.Entity("MainLogic.GlobalParameters.BaseEntities.GameStateParametersBaseEntity", b =>
@@ -267,7 +267,7 @@ namespace MainLogic.AppDataManip.Migrations
 
                     b.HasKey("SaveSlot");
 
-                    b.ToTable("GameStateParameters");
+                    b.ToTable("GameStateParameters", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Heroes.ArcherEntity", b =>

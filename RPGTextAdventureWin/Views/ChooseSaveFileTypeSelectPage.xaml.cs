@@ -82,6 +82,7 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
         }
         else
         {
+            Instance.GameManager = gameManager;
             await GoToGameLoopMenu();
         }
     }
