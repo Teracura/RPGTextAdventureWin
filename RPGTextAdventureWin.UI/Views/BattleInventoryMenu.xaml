@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:RPGTextAdventureWin.Models"
+             x:Class="RPGTextAdventureWin.Views.BattleInventoryMenu">
+    <ContentPage.Content>
+        <VerticalStackLayout>
+            <Label
+                Text="Inventory"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+
+            <CollectionView ItemsSource="{Binding InventorySlots}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:InventoryShowViewModel">
+                        <Grid ColumnDefinitions="20*,5*,60*,15*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding ItemName}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding ItemCount}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding ItemDescription}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Button
+                                Grid.Column="3"
+                                Text="{Binding ItemUseButtonText}"
+                                Command="{Binding ItemUseCommand}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Button
+                Text="Return to main menu"
+                Clicked="ReturnToMainMenuClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                FontSize="16"
+                LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

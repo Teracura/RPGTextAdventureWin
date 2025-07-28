@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:RPGTextAdventureWin.Models"
+             x:Class="RPGTextAdventureWin.Views.ChooseSaveFileTypeSelectPage">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Choose A save file"
+                HorizontalOptions="Center"
+                FontSize="24"
+                Margin="0,20,0,10" />
+
+            <CollectionView ItemsSource="{Binding SaveSlots}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SaveSlotViewModel">
+                        <Grid ColumnDefinitions="60*,40*" ColumnSpacing="10" Padding="0,5">
+                            <Button
+                                Text="{Binding DisplayText}"
+                                Command="{Binding ClickCommand}"
+                                Grid.Column="0"
+                                HorizontalOptions="Fill" />
+                            <Label
+                                Text="{Binding Status}"
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                FontSize="16"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                x:Name="ReturnToMenu"
+                Text="Return to MainMenu"
+                IsVisible="false"
+                Clicked="ReturnToMainMenu"
+                HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="ExitToStart"
+                Text="Return to start"
+                Clicked="ReturnToStartClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Something is wrong if this is visible"
+                x:Name="OutputLabel"
+                HorizontalOptions="Center"
+                FontSize="24"
+                IsVisible="False"
+                Margin="0,20,0,10" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

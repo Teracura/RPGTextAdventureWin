@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:RPGTextAdventureWin.Models"
+             x:Class="RPGTextAdventureWin.Views.BattleMenu">
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <!--Header and enemyCountNumber-->
+            <Label
+                Margin="0,20,0,10"
+                x:Name="EnemyCounter"
+                Text="Battle starts! (0 Enemies defeated out of placeholder!)"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="24"
+                LineBreakMode="WordWrap" />
+
+            <!--Titles-->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Label
+                    Grid.Column="0"
+                    Margin="0,20,0,10"
+                    x:Name="HeroName"
+                    Text="PlaceHolderHeroName"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="20"
+                    LineBreakMode="WordWrap" />
+                <Label
+                    Grid.Column="1"
+                    Margin="0,20,0,10"
+                    x:Name="EnemyName"
+                    Text="PlaceHolderEnemyName"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="20"
+                    LineBreakMode="WordWrap" />
+            </Grid>
+
+            <!--Stats Area-->
+
+            <CollectionView ItemsSource="{Binding StatsSlots}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StatsShowViewModel">
+                        <Grid ColumnDefinitions="17.5*,30*,5*,30*,17.5*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding StatName1}"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding StatValue1}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="3"
+                                Text="{Binding StatName2}"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="4"
+                                Text="{Binding StatValue2}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--ActionButtons-->
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="0,20,0,10">
+                <Button
+                    Grid.Column="0"
+                    Text="Attack"
+                    Clicked="AttackButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="1"
+                    Text="Run"
+                    Clicked="RunAwayButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="2"
+                    Text="Use special Ability"
+                    Clicked="SpecialAbilityButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+                <Button
+                    Grid.Column="3"
+                    Text="Use Item"
+                    Clicked="UseItemButtonClicked"
+                    LineBreakMode="WordWrap"
+                    HorizontalOptions="Fill" />
+            </Grid>
+
+            <!--BattleInformationBoxes-->
+            <CollectionView ItemsSource="{Binding InformationBoxes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding LeftSideText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding MiddleText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding RightSideText}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

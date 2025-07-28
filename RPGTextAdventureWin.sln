@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGTextAdventureWin", "RPGTextAdventureWin\RPGTextAdventureWin.csproj", "{82455FA3-1667-4261-B552-4FF195770A44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGTextAdventureWin.UI", "RPGTextAdventureWin.UI\RPGTextAdventureWin.UI.csproj", "{82455FA3-1667-4261-B552-4FF195770A44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{E5F0B1F7-A86E-4E49-8A33-3CE9B99DE59F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGTextAdventureWin.Entities", "RPGTextAdventureWin.Entities\RPGTextAdventureWin.Entities.csproj", "{E5F0B1F7-A86E-4E49-8A33-3CE9B99DE59F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainLogic", "MainLogic\MainLogic.csproj", "{58CF1E0F-BED7-40F7-90F8-A4AE764C5A10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGTextAdventureWin.MainLogic", "RPGTextAdventureWin.MainLogic\RPGTextAdventureWin.MainLogic.csproj", "{58CF1E0F-BED7-40F7-90F8-A4AE764C5A10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
