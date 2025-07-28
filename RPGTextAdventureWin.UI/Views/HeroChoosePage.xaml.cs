@@ -1,4 +1,6 @@
 ﻿
+using RPGTextAdventureWin.UI.Views;
+
 namespace RPGTextAdventureWin.Views;
 
 public partial class HeroChoosePage : ContentPage

@@ -4,6 +4,7 @@ using MainLogic.GameLogic;
 using MainLogic.GameLogic.CombatLogic;
 using MainLogic.GlobalParameters;
 using RPGTextAdventureWin.Models;
+using RPGTextAdventureWin.UI;
 
 namespace RPGTextAdventureWin.Views;
 

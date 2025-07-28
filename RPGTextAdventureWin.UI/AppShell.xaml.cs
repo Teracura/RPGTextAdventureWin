@@ -1,4 +1,5 @@
-﻿using RPGTextAdventureWin.Views;
+﻿using RPGTextAdventureWin.UI.Views;
+using RPGTextAdventureWin.Views;
 
 namespace RPGTextAdventureWin;
 

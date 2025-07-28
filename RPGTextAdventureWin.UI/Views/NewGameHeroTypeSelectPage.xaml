@@ -2,7 +2,10 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RPGTextAdventureWin.Views.NewGameHeroTypeSelectPage">
+             xmlns:models="clr-namespace:RPGTextAdventureWin.UI.Models"
+             xmlns:views="clr-namespace:RPGTextAdventureWin.Views"
+             xmlns:views1="clr-namespace:RPGTextAdventureWin.UI.Views"
+             x:Class="RPGTextAdventureWin.UI.Views.NewGameHeroTypeSelectPage">
     <ContentPage.Content>
         <VerticalStackLayout
             Padding="30,0"
@@ -13,56 +16,28 @@
                 FontSize="24"
                 Margin="0,20,0,10" />
 
-            <!-- First row - Warrior -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Button
-                    Grid.Column="0"
-                    x:Name="WarriorButton"
-                    Text="Warrior"
-                    Clicked="WarriorSelected"
-                    HorizontalOptions="Fill" />
-                <Label
-                    Grid.Column="1"
-                    Text="(High HP, average Dmg, low MP, high Defence)"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <!-- Second row - Archer -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Button
-                    Grid.Column="0"
-                    x:Name="ArcherButton"
-                    Text="Archer"
-                    Clicked="ArcherSelected"
-                    HorizontalOptions="Fill" />
-                <Label
-                    Grid.Column="1"
-                    Text="(Average HP, high Dmg, average MP, average Defence)"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
-
-            <!-- Third row - Mage -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Button
-                    Grid.Column="0"
-                    x:Name="MageButton"
-                    Text="Mage"
-                    Clicked="MageSelected"
-                    HorizontalOptions="Fill" />
-                <Label
-                    Grid.Column="1"
-                    Text="(Low HP, very high Dmg, high MP, low Defence)"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    LineBreakMode="WordWrap" />
-            </Grid>
+            <CollectionView ItemsSource="{Binding NewHeroSlots}" Margin="0,20,0,10"
+                            x:DataType="views1:NewGameHeroTypeSelectPage">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:OneLabelOneButtonViewModel">
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,0,0,10">
+                            <Button
+                                Grid.Column="0"
+                                Text="{Binding ButtonText }"
+                                Command="{Binding OnButtonClicked}"
+                                HorizontalOptions="Fill"
+                                Margin="0,0,0,10" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding LabelText}"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                LineBreakMode="WordWrap" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button
                 Text="Return to start"

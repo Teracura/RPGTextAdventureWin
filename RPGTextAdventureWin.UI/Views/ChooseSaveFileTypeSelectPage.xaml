@@ -22,6 +22,7 @@
                                 Text="{Binding DisplayText}"
                                 Command="{Binding ClickCommand}"
                                 Grid.Column="0"
+                                Margin="0,0,0,10"
                                 HorizontalOptions="Fill" />
                             <Label
                                 Text="{Binding Status}"

@@ -1,4 +1,4 @@
-﻿namespace RPGTextAdventureWin;
+﻿namespace RPGTextAdventureWin.UI;
 
 internal enum MessageSides
 {

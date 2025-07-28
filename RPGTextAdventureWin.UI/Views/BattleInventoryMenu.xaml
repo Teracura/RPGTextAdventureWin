@@ -44,6 +44,7 @@
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 FontSize="16"
+                                Margin="0,0,0,10"
                                 LineBreakMode="WordWrap" />
                         </Grid>
                     </DataTemplate>

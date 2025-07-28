@@ -4,22 +4,35 @@ namespace MainLogic.Factories;
 
 public class HeroCreator
 {
-    private readonly Dictionary<string, Func<IHero>> _heroFactories = new(StringComparer.OrdinalIgnoreCase)
+    private readonly Dictionary<string, Func<IHero>> _heroStringFactories = new(StringComparer.OrdinalIgnoreCase)
     {
         { "Warrior", () => new Warrior() },
         { "Archer", () => new Archer() },
         { "Mage", () => new Mage() }
     };
 
-    public IHero CreateNewHero(string type)
+    private readonly Dictionary<HeroClasses, Func<IHero>> _heroEnumFactories = new()
     {
-        if (!_heroFactories.TryGetValue(type, out var factory))
+        { HeroClasses.Warrior, () => new Warrior() },
+        { HeroClasses.Archer, () => new Archer() },
+        { HeroClasses.Mage, () => new Mage() }
+    };
+    
+    private static IHero CreateHeroFromFactory<T>(Dictionary<T, Func<IHero>> factoryMap, T key) where T : notnull
+    {
+        if (!factoryMap.TryGetValue(key, out var factory))
         {
-            throw new ArgumentException($"Unknown hero type: {type}");
+            throw new ArgumentException($"Unknown hero type: {key}");
         }
 
-        var hero = factory();
-        return hero;
+        return factory();
     }
+
+    public IHero CreateNewHero(string type) =>
+        CreateHeroFromFactory(_heroStringFactories, type);
+
+    public IHero CreateNewHero(HeroClasses type) =>
+        CreateHeroFromFactory(_heroEnumFactories, type);
+
 
 }
