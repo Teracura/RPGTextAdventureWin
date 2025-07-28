@@ -20,7 +20,7 @@
                     x:Name="WarriorButton"
                     Text="Warrior"
                     Clicked="WarriorSelected"
-                    HorizontalOptions="Fill"/>
+                    HorizontalOptions="Fill" />
                 <Label
                     Grid.Column="1"
                     Text="(High HP, average Dmg, low MP, high Defence)"
@@ -29,7 +29,7 @@
                     FontSize="16"
                     LineBreakMode="WordWrap" />
             </Grid>
-            
+
             <!-- Second row - Archer -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <Button
@@ -37,7 +37,7 @@
                     x:Name="ArcherButton"
                     Text="Archer"
                     Clicked="ArcherSelected"
-                    HorizontalOptions="Fill"/>
+                    HorizontalOptions="Fill" />
                 <Label
                     Grid.Column="1"
                     Text="(Average HP, high Dmg, average MP, average Defence)"
@@ -46,7 +46,7 @@
                     FontSize="16"
                     LineBreakMode="WordWrap" />
             </Grid>
-            
+
             <!-- Third row - Mage -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <Button
@@ -54,7 +54,7 @@
                     x:Name="MageButton"
                     Text="Mage"
                     Clicked="MageSelected"
-                    HorizontalOptions="Fill"/>
+                    HorizontalOptions="Fill" />
                 <Label
                     Grid.Column="1"
                     Text="(Low HP, very high Dmg, high MP, low Defence)"
@@ -63,6 +63,14 @@
                     FontSize="16"
                     LineBreakMode="WordWrap" />
             </Grid>
+
+            <Button
+                Text="Return to start"
+                Clicked="ReturnToStartClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                FontSize="16"
+                LineBreakMode="WordWrap" />
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

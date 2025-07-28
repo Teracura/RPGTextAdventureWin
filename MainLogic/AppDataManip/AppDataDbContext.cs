@@ -1,12 +1,16 @@
-﻿using Entities.Heroes;
+﻿using System.Diagnostics;
+using Entities.Heroes;
 using Entities.Items;
 using MainLogic.GlobalParameters.BaseEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MainLogic.AppDataManip;
 
-public class AppDataDbContext() : DbContext
+public class AppDataDbContext(string dbPath) : DbContext
 {
+    
+    private readonly string _dbPath = dbPath;
+
     public DbSet<GameStateParametersBaseEntity> GameStateParameters { get; set; }
     public DbSet<HeroBaseEntity> Heroes { get; set; }
     public DbSet<OwnedItemsBase> OwnedItems { get; set; }
@@ -15,8 +19,9 @@ public class AppDataDbContext() : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (optionsBuilder.IsConfigured) return;
-        
-        optionsBuilder.UseSqlite($"Data Source=SavingAndLoadingData.db");
+
+        optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+        Debug.WriteLine("path: " + _dbPath);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

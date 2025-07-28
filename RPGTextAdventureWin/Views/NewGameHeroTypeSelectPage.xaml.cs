@@ -41,16 +41,22 @@ public partial class NewGameHeroTypeSelectPage : ContentPage
 
     private async void GoToGameLoopMenu()
     {
-            await Shell.Current.GoToAsync(nameof(GameLoopMenu));
+        await Shell.Current.GoToAsync(nameof(GameLoopMenu));
     }
 
     private void InitializeHero(IHero hero)
     {
         Instance.HeroState.Hero = hero;
         Instance.MetaProgressionState.ScaleFactor = 1m;
-        Instance.DungeonState.NumberOfEnemiesPerDungeon = 5; //default values, don't change unless related to game balance
+        Instance.DungeonState.NumberOfEnemiesPerDungeon =
+            5; //default values, don't change unless related to game balance
         ShopManager.GetRandomShopItems(Instance.HeroState.Hero.Type!);
         var gameManager = new GameManager(new EnemyCreator(), new CombatManager(), new Queue<IEnemy>());
         Instance.GameManager = gameManager;
+    }
+
+    private async void ReturnToStartClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(HeroChoosePage));
     }
 }

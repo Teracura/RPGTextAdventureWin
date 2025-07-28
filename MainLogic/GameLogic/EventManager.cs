@@ -45,9 +45,10 @@ public static class EventManager
         GameMessageNotification?.Invoke($"You leveled up to level {level}!");
     }
 
-    public static void SendSpecialAttackUseMessage(SpecialAttackTypes type, IEnemy enemy)
+    public static void SendSpecialAttackUseMessage(ISpecialAttack attack, IEnemy enemy)
     {
         var hero = Instance.HeroState.Hero;
+        var type = attack.GetType();
         switch (type)
         {
             // Warrior

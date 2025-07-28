@@ -8,6 +8,8 @@ public class StrikeOfTheAvenger : ISpecialAttack
     public int ManaCost { get; } = 15;
     public int turnCooldown { get; } = 0;
     public HeroClasses HeroClass { get; } = HeroClasses.Warrior;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         var enemy = CombatManager.CurrentEnemy;

@@ -12,7 +12,7 @@
                 HorizontalOptions="Center"
                 FontSize="24"
                 Margin="0,20,0,10" />
-            
+
             <CollectionView ItemsSource="{Binding SaveSlots}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -32,7 +32,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
             <Button
                 x:Name="ReturnToMenu"
                 Text="Return to MainMenu"
@@ -46,6 +46,14 @@
                 FontSize="24"
                 IsVisible="False"
                 Margin="0,20,0,10" />
+
+            <Button
+                x:Name="ExitToStart"
+                Text="Return to start"
+                Clicked="ReturnToStartClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                LineBreakMode="WordWrap" />
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -8,6 +8,8 @@ public class ElvenCursedArrow : ISpecialAttack
     public int ManaCost { get; } = 10;
     public int turnCooldown { get; } = 0;
     public HeroClasses HeroClass { get; } = HeroClasses.Archer;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         throw new NotImplementedException();

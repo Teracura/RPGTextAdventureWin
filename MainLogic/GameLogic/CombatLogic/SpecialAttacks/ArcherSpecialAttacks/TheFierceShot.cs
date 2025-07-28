@@ -8,6 +8,8 @@ public class TheFierceShot : ISpecialAttack
     public int ManaCost { get; } = 10;
     public int turnCooldown { get; } = 1;
     public HeroClasses HeroClass { get; } = HeroClasses.Archer;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         throw new NotImplementedException();

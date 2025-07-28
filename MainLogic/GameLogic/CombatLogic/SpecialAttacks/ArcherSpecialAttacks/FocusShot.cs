@@ -8,6 +8,8 @@ public class FocusShot : ISpecialAttack
     public int ManaCost { get; } = 15;
     public int turnCooldown { get; } = 2;
     public HeroClasses HeroClass { get; } = HeroClasses.Archer;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         throw new NotImplementedException();

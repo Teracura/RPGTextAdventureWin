@@ -24,6 +24,7 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
         if (GameStateParameters.Instance.Saving)
         {
             ReturnToMenu.IsVisible = true;
+            ExitToStart.Text = "Exit to start";
         }
 
         SaveSlots = new ObservableCollection<SaveSlotViewModel>(
@@ -51,7 +52,8 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 
     private async Task SaveSelected(SaveSlotViewModel slot)
     {
-        var context = new AppDataDbContext();
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "SavingAndLoadingData.db");
+        var context = new AppDataDbContext(dbPath);
         var dataManager = new GameDataManager(context, Mapper);
         var gameManager = new GameManager(new EnemyCreator(), new CombatManager(), new Queue<IEnemy>());
 
@@ -86,7 +88,8 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
 
     private async Task LoadStatusesFromDbAsync()
     {
-        var context = new AppDataDbContext();
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "SavingAndLoadingData.db");
+        var context = new AppDataDbContext(dbPath);
 
         foreach (var slot in SaveSlots)
         {
@@ -112,5 +115,11 @@ public partial class ChooseSaveFileTypeSelectPage : ContentPage
     private async Task GoToGameLoopMenu()
     {
         await Shell.Current.GoToAsync(nameof(GameLoopMenu));
+    }
+
+    private async void ReturnToStartClicked(object? sender, EventArgs e)
+    {
+        Instance.Saving = false;
+        await Shell.Current.GoToAsync(nameof(HeroChoosePage));
     }
 }

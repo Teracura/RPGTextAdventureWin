@@ -8,6 +8,8 @@ public class AbsoluteGuard() : ISpecialAttack
     public int ManaCost { get; } = 20;
     public int turnCooldown { get; } = 0;
     public HeroClasses HeroClass { get; } = HeroClasses.Warrior;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         throw new NotImplementedException();

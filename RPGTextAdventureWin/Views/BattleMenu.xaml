@@ -9,19 +9,19 @@
             Spacing="25">
             <!--Header and enemyCountNumber-->
             <Label
-                Margin="0,20,0,10" 
+                Margin="0,20,0,10"
                 x:Name="EnemyCounter"
                 Text="Battle starts! (0 Enemies defeated out of placeholder!)"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 FontSize="24"
                 LineBreakMode="WordWrap" />
-            
+
             <!--Titles-->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <Label
                     Grid.Column="0"
-                    Margin="0,20,0,10" 
+                    Margin="0,20,0,10"
                     x:Name="HeroName"
                     Text="PlaceHolderHeroName"
                     HorizontalOptions="Center"
@@ -30,7 +30,7 @@
                     LineBreakMode="WordWrap" />
                 <Label
                     Grid.Column="1"
-                    Margin="0,20,0,10" 
+                    Margin="0,20,0,10"
                     x:Name="EnemyName"
                     Text="PlaceHolderEnemyName"
                     HorizontalOptions="Center"
@@ -38,9 +38,9 @@
                     FontSize="20"
                     LineBreakMode="WordWrap" />
             </Grid>
-            
+
             <!--Stats Area-->
-            
+
             <CollectionView ItemsSource="{Binding StatsSlots}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -77,9 +77,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
             <!--ActionButtons-->
-            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="0,20,0,10" >
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="0,20,0,10">
                 <Button
                     Grid.Column="0"
                     Text="Attack"
@@ -105,7 +105,7 @@
                     LineBreakMode="WordWrap"
                     HorizontalOptions="Fill" />
             </Grid>
-            
+
             <!--BattleInformationBoxes-->
             <CollectionView ItemsSource="{Binding InformationBoxes}">
                 <CollectionView.ItemTemplate>
@@ -136,8 +136,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-           
 
         </VerticalStackLayout>
     </ContentPage.Content>

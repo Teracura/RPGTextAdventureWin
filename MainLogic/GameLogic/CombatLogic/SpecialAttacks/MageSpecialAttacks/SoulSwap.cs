@@ -8,6 +8,8 @@ public class SoulSwap : ISpecialAttack
     public int ManaCost { get; } = 0;
     public int turnCooldown { get; } = 4;
     public HeroClasses HeroClass { get; } = HeroClasses.Mage;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         var manaRatio = (hero.CalculateMaxMp() - hero.Mp / hero.CalculateMaxMp());

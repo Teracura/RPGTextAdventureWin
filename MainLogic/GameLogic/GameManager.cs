@@ -95,4 +95,9 @@ public class GameManager(
             enemies.Enqueue(enemy);
         }
     }
+
+    public bool UseSpecialAttack(ISpecialAttack attack)
+    {
+        return combatManager.UseSpecialAbility(attack);
+    }
 }

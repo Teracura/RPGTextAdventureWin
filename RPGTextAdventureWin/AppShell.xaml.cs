@@ -17,5 +17,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(BattleInventoryMenu), typeof(BattleInventoryMenu));
         Routing.RegisterRoute(nameof(InventoryMenu), typeof(InventoryMenu));
         Routing.RegisterRoute(nameof(EquipmentSlotMenu), typeof(EquipmentSlotMenu));
+        Routing.RegisterRoute(nameof(SpecialAbilitiesMenu), typeof(SpecialAbilitiesMenu));
     }
 }

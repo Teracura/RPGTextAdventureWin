@@ -198,8 +198,8 @@ public partial class BattleMenu : ContentPage
     }
 
 
-    private void SpecialAbilityButtonClicked(object? sender, EventArgs e)
+    private async void SpecialAbilityButtonClicked(object? sender, EventArgs e)
     {
-        //TODO: Use special ability then enemy attacks
+        await Shell.Current.GoToAsync("SpecialAbilitiesMenu");
     }
 }

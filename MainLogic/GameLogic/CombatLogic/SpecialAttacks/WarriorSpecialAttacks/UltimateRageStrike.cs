@@ -8,6 +8,8 @@ public class UltimateRageStrike : ISpecialAttack
     public int ManaCost { get; } = 5;
     public int turnCooldown { get; } = 0;
     public HeroClasses HeroClass { get; } = HeroClasses.Warrior;
+    public int RealCooldown { get; set; }
+    
     public void Apply(IHero hero)
     {
         CombatManager.CurrentEnemy.Hp -= hero.Dmg * 1.5m;

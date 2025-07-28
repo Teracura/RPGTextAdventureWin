@@ -10,15 +10,16 @@ public class CombatManager()
     public static IEnemy CurrentEnemy { get; set; }
     private static readonly GameStateParameters Instance = GameStateParameters.Instance;
 
-    internal void UseSpecialAbility(SpecialAttackTypes specialAttackType)
+    internal bool UseSpecialAbility(ISpecialAttack attack)
     {
         var hero = Instance.HeroState.Hero;
-        var specialAttack = SpecialAttackFactory.Create(specialAttackType);
-        specialAttack.Apply(hero);
-        EventManager.SendSpecialAttackUseMessage(specialAttackType, CurrentEnemy);
+        if (attack.RealCooldown > 0) return false;
+        attack.Apply(hero);
+        EventManager.SendSpecialAttackUseMessage(attack, CurrentEnemy);
         RetaliateIfNotDefeated();
+        return true;
     }
-    
+
     internal void Attack()
     {
         var hero = Instance.HeroState.Hero;
@@ -47,7 +48,7 @@ public class CombatManager()
         if (hero.Hp > 0) return;
         Instance.HeroState.IsDefeated = true;
     }
-    
+
     public void ApplyEnemyDefeatResults()
     {
         Instance.DungeonState.EnemyDefeated = false;
