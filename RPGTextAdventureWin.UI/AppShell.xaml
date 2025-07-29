@@ -5,6 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RPGTextAdventureWin"
     Title="RPGTextAdventureWin.UI">
+    
+    <!-- Global Theme Toggle Button -->
+    <Shell.ToolbarItems>
+        <ToolbarItem
+            x:Name="ThemeButton"
+            Order="Primary"
+            Priority="0"
+            Clicked="OnToggleThemeClicked" />
+    </Shell.ToolbarItems>
 
     <ShellContent
         Title="Home"
